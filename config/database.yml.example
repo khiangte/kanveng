@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password: pwd
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: kanveng_development
+
+test:
+  <<: *default
+  database: kanveng_test
+
+production:
+  <<: *default
+  database: kanveng_production
+  username: kanveng
+  password: <%= ENV['KANVENG_DATABASE_PASSWORD'] %>
