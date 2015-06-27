@@ -1,0 +1,5 @@
+<tr>
+	<td width="10%"><%= profile_photo(member.photo_url_safe,"30x30") %></td>
+	<td width="60%"><%= link_to member.fullname, member_path(:id => member.id) %></td>
+	<td width="30%" class="text-right"><%= star(member.membership_type) %><span class="badge"><%= member.membership_no %></span></td>
+</tr>

@@ -1,0 +1,51 @@
+<% if @post.errors.any? %>
+	<div class="alert alert-info" role="alert">
+		<% for msg in @post.errors.full_messages %>
+			<li><%= msg %></li>
+		<% end %>
+	</div>
+<% end %>
+<%= form_for @post, url: (@post.id.blank? ? create_post_path : update_post_path), :method => :POST do |f| %>
+	<form>
+		  <div class="form-group">
+		    <%= f.label :title %><br />
+		    <%= f.text_field :title, :class => "form-control", :placeholder=>"Name" %>
+		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :content %><br />
+		    <%= f.text_area :content, :class => "form-control", :placeholder=>"Address" %>
+	  	</div>
+		  
+			<div class="form-group">
+			    <%= f.label :post_type %> 
+			  	<%= f.select(:post_type, options_for_select([['Announcement','Announcement'],['Suggestion','Suggestion'],['Question','Question'],['Complaint','Complaint']]),{},{:class => "form-control"}) %>
+		  </div>
+		  <div class="row">
+		  <div class="col-xs-6">
+			  <div class="form-group">
+				    <%= f.label :public %>{make this radio button} 
+				  	<%= f.select(:public, options_for_select([['Yes',1],['No',0]]),{},{:class => "form-control"}) %>
+			  </div>
+			</div>
+			<div class="col-xs-6">
+			  <div class="form-group">
+			    <%= f.label :group_id %><br />
+			    <%= f.select(:group_id, options_for_select([['None',0],['Group 1',1],['Group 2',2]]),{},{:class => "form-control"}) %>
+			  </div>
+			  </div>
+			 </div>
+	  <div class="form-group">
+	    <b>Expires On</b><br />
+	    <%= f.datetime_select :expires_at, :start_year => Date.current.year, :end_year => Date.current.year + 1, :default => Date.today %>
+	  </div>
+	  
+	  <div class="form-group">
+	    <%= f.label :attachment_url %><br />
+	    <%= f.text_field :attachment_url, :class => "form-control", :placeholder=>"Paste attachment url here" %>
+	  </div>
+	  <div class="form-group">
+	    <%= f.submit :class => "btn btn-default" %>
+	  </div>
+	</form>
+<% end %>

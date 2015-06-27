@@ -1,0 +1,36 @@
+<div class="row">
+	<h3><%= font_awesome('users') %> Search member 
+    <span class="pull-right icon-buttons-free-size">
+      <%= link_to font_awesome('user-plus').html_safe, new_member_path, :title => "Register a new member" %>
+      <%= link_to font_awesome('list').html_safe, "#", :title => "List members" %>
+    </span>
+  </h3>
+</div>
+<div class="row">
+    <div class="input-group">
+      <input id="key_word" type="text" class="form-control" placeholder="Search by name or membership number...">
+      <span class="input-group-btn">
+        <button id = "search_btn" class="btn btn-default" type="button" onclick="search()">Search</button>
+      </span>
+    </div><!-- /input-group -->
+</div><!-- /.row -->
+<hr />
+<div class="row" id = "members_rows">
+<table class = "table">
+<% if @members.empty? %>
+	<i>No results to show!</i>
+<% else %>
+  <i>Showing newest members</i>
+		<% @members.each do |member| %>
+			<%= member_search_row_html(member).html_safe %>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<script type="text/javascript">
+	$("#key_word").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#search_btn").click();
+    }
+});
+</script>

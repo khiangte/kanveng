@@ -1,0 +1,14 @@
+<% if @post.nil? %>
+	Post not found! It may have been deleted!
+<% else %>
+	<div class="panel panel-default">
+	  <div class="panel-body">
+		 	<h3><%=@post.title %></h3>
+	    	<%= simple_format(@post.content) %>  	
+		</div>
+		Posted by <%= @post.member.full_name %>
+		<% if @post.approved_by %>
+			Approved by <%= @post.approver.full_name %>
+		<% end %>
+	</div>
+<% end %>
