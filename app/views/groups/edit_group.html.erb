@@ -1,0 +1,9 @@
+<h3>
+	<%= font_awesome('user') %>
+	Edit group details
+</h3>
+<% if @group %>
+	<%= render 'group_form' %>
+<% else %>
+	Sorry, you are not allowed to edit this!
+<% end %>

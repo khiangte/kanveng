@@ -1,0 +1,13 @@
+<div class="header">
+<%= font_awesome("share-alt") %> Groups
+<div class="icon-buttons pull-right">
+	<%= link_to font_awesome('plus'), new_group_path, :title => 'New Post' %>
+</div>
+</div>
+<% @groups.each do |group| %>
+	<%= group_icon(group.group_type) %> <%= link_to group.name, group_path(:id => group.id) %></b> <br />
+	Members: 100, Posts: 40<br />
+	Admin: First admin name<br />
+	Also display their LOGO or photo at the end
+	<br /><br />
+<% end %>

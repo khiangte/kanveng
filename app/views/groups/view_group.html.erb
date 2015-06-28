@@ -1,0 +1,11 @@
+<% if @group.nil? %>
+	Group not found! It may have been deleted!
+<% else %>
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	  Also a photo: to be updated when migration is run
+		 	<h3><%= group_icon(@group.group_type) %> <%=@group.name %></h3>
+	    	<%= simple_format(@group.description) %>  	
+		</div>
+	</div>
+<% end %>

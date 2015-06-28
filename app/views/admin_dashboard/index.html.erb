@@ -1,0 +1,20 @@
+Admin will see new posts/member profiles to be approved,
+see various links like Deactivating Members/ Create public Announcements/ Emergency Alert/ Create new group/ Appoint admins to groups
+
+<div class="header"><%= font_awesome('newspaper-o') %> Unapproved Posts</div>
+<div class="contents">
+	<% @unapproved_posts.each do |post| %>
+		<%= font_awesome('calendar') %> <b><%= link_to post.title, post_path(:id=> post.id) %></b> <%= post.public ? font_awesome('globe') : font_awesome('unlock') %><br />
+			<%= font_awesome('user') %> <%= link_to post.member.full_name, member_path(:id => post.member.id) %> <br />
+			<br />
+	<% end %>
+
+</div>
+
+<div class="header"><%= font_awesome('user') %> Unverified Members</div>
+<div class="contents">
+	<% @unverified_members.each do |member| %>
+		<%= link_to member.full_name, member_path(:id => member.id ) %><br />
+	<% end %>
+
+</div>

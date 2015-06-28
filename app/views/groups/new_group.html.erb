@@ -1,0 +1,9 @@
+<h3>
+	<%= font_awesome('user-plus') %>
+	Create a new Group <span class="badge pull-right"></span>
+</h3>
+<% if @group %>
+	<%= render 'group_form' %>
+<% else %>
+	Sorry, you need to be verified before you can make groups. Please contact the <%= link_to 'admins here', "#" %>
+<% end %>
