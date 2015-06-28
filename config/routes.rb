@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   root 'boards#index'
 
   #members
@@ -21,4 +21,17 @@ Rails.application.routes.draw do
   post 'update_post' => 'posts#update_post', :as => 'update_post'
   # get 'deactivate_member/:id' => 'members#deactivate_member', :as => 'deactivate_member'
   get 'posts' => 'posts#posts', :as => 'posts'
+  get 'approve_post' => 'posts#approve_post', :as => 'approve_post'
+
+#groups
+  post 'create_group' => 'groups#create_group', :as => 'create_group'
+  get 'new_group' => 'groups#new_group', :as => 'new_group'
+  get 'group/:id' => 'groups#view_group', :as => 'group'
+  get 'edit_group/:id' => 'groups#edit_group', :as => 'edit_group'
+  post 'update_group' => 'groups#update_group', :as => 'update_group'
+  get 'groups' => 'groups#groups', :as => 'groups'
+
+
+#AdminDashboard
+  get 'admin_dashboard' => 'admin_dashboard#index', :as => 'admin_dashboard'
 end

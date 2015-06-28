@@ -25,13 +25,17 @@
           <a class="navbar-brand" href="/">Kan Véng</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <!-- <ul class="nav navbar-nav">
-            
-          </ul> -->
+          <ul class="nav navbar-nav">
+            <% if user_signed_in? && current_user.role.is_all_admin? %>
+              <li><%= link_to (font_awesome('wrench') + ' Admin Board').html_safe,  admin_dashboard_path %></li>
+            <% end %>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
            <% if user_signed_in? %>
-            
+            <li><%= link_to (font_awesome('share-alt') + ' Groups').html_safe,  groups_path %></li>
+            <li><%= link_to (font_awesome('newspaper-o') + ' Posts').html_safe,  posts_path %></li>
             <li><%= link_to (font_awesome('users') + ' Members').html_safe,  members_path %></li>
+            <li><%= link_to (font_awesome('user') + ' My Profile').html_safe,  "#" %></li>
             <!-- <li class="active"> -->
             <li><%= link_to (font_awesome('sign-out') + ' Log out').html_safe,  destroy_user_session_path, :method => :delete %></li>
       			<% else %>

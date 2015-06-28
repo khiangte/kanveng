@@ -1,13 +1,12 @@
+<div class="header">
+<%= font_awesome("newspaper-o") %> Posts
+<div class="icon-buttons pull-right">
+	<%= link_to font_awesome('plus'), new_post_path, :title => 'New Post' %>
+</div>
+</div>
 <% @posts.each do |post| %>
-			
-			<%= font_awesome('calendar') %> <b><%= post.title %></b> <%= post.public ? font_awesome('globe') : font_awesome('unlock') %><br />
-			<%= font_awesome('user') %> <%= link_to post.member.full_name, member_path(:id => post.member.id) %> <br />
-			<%= simple_format(truncate(post.content, :length => 200)) %> <br />
-			<div class="icon-buttons pullright">
-			    	<%= link_to font_awesome('envelope-o'), "#", :title => 'Email' %>
-			    	<%= link_to font_awesome('comment'), "#", :title => 'Send SMS' %>
-			    	<%= link_to font_awesome('pencil-square-o'), "#", :title => 'Edit or view booking' %>
-		    </div>
-			<br />
-
-		<% end %>
+	<%= font_awesome('calendar') %> <b><%= post.title %></b> <%= post.public ? (font_awesome('globe') + " Public") : (font_awesome('unlock') + " Group name") %><br />
+	<%= font_awesome('user') %> <%= link_to post.member.full_name, member_path(:id => post.member.id) %> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %><br />
+	<%= simple_format(truncate(post.content, :length => 200)) %>
+	<br />
+<% end %>

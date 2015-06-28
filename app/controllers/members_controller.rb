@@ -55,7 +55,11 @@ class MembersController < ApplicationController
  #  end
 
 	def edit_member
-		@member = Member.active.find_by_id(params[:id])
+		if current_user.is_all_admin? || current_user.member.id == params[:id]
+			@member = Member.active.find_by_id(params[:id])
+		else
+			@member = nil
+		end
 	end
 
 	def view_member
@@ -68,6 +72,13 @@ class MembersController < ApplicationController
 	# 	flash[:notice] = "Member profile " + @member.fullname + " deactivated"
 	# 	redirect_to root_path
 	# end
+	def approve_member
+		post = Post.find_by_id(params[:id])
+		post.approved_by = current_user.id
+		if post.save
+			render :json => {:success => true, :result => "Approved by #{current_user.member.full_name}"}
+		end
+	end
 
 	private
   def member_params

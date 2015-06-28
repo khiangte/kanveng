@@ -1,5 +1,9 @@
 <h3>
 	<%= font_awesome('user') %>
-	Edit member details <span class="badge pull-right"><%= @member.epic_no %></span>
+	Edit member details <span class="badge pull-right"><%= @member.epic_no if @member %></span>
 </h3>
-<%= render 'member_form' %>
+<% if @member %>
+	<%= render 'member_form' %>
+<% else %>
+	Sorry, you are not allowed to edit this!
+<% end %>

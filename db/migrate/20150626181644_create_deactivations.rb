@@ -1,7 +1,7 @@
 class CreateDeactivations < ActiveRecord::Migration
   def change
     create_table :deactivations do |t|
-    	t.integer		:member_id
+    	t.integer		:user_id
     	t.text			:reason
     	t.date 			:effective_date
 

@@ -6,9 +6,31 @@
 		 	<h3><%=@post.title %></h3>
 	    	<%= simple_format(@post.content) %>  	
 		</div>
-		Posted by <%= @post.member.full_name %>
-		<% if @post.approved_by %>
-			Approved by <%= @post.approver.full_name %>
-		<% end %>
+		Posted by <%= @post.member.full_name %> at <%= @post.created_at.strftime("%B %d, %Y, %I:%M %p") %>
+		<div id="approval_div">
+			<% if @post.approved_by %>
+				Approved by <%= @post.approver.member.full_name %>
+			<% elsif current_user.role.can_approve_public_post? %>
+				<%= link_to "Approve", "#", :id => "approve", :val => @post.id %>
+			<% end %>
+		</div>
 	</div>
+<% end %>
+<% if !@post.approved_by && current_user.role.can_approve_public_post? %>
+<script type="text/javascript">
+	$("#approve").on('click', function(){
+    jQuery.ajax({
+            data : {
+                id : jQuery("#approve").attr('val')
+            },
+            url : '/approve_post',
+            success : function(result) {
+                jQuery("div#approval_div").html(result.result);
+            },
+            error: function() {
+                alert('Something went wrong. Please report this problem.');
+            }
+        });
+	});
+</script>
 <% end %>

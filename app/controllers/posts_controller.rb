@@ -2,12 +2,16 @@ class PostsController < ApplicationController
 	before_action :authenticate_user!
 
 	def new_post
-		@post = Post.new
+		if current_user.member.is_verified?
+			@post = Post.new
+		else
+			@post = nil
+		end
 	end
 
 	def create_post
 		@post = Post.new(post_params)
-		@post.member = current_user.member
+		@post.user = current_user
 		if @post.save
   			redirect_to post_path(:id => @post.id)
   		else
@@ -28,6 +32,14 @@ class PostsController < ApplicationController
 			redirect_to post_path(:id => @post.id)
 		else
 			redirect_to edit_post_path(:id => @post.id)
+		end
+	end
+
+	def approve_post
+		post = Post.find_by_id(params[:id])
+		post.approved_by = current_user.id
+		if post.save
+			render :json => {:success => true, :result => "Approved by #{current_user.member.full_name}"}
 		end
 	end
 

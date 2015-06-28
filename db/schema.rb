@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626205707) do
+ActiveRecord::Schema.define(version: 20150627105921) do
 
   create_table "contacts", force: :cascade do |t|
-    t.integer  "member_id",    limit: 4
+    t.integer  "user_id",      limit: 4
     t.integer  "contact_type", limit: 4
     t.string   "value",        limit: 255
     t.boolean  "visible",      limit: 1,   default: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150626205707) do
   end
 
   create_table "deactivations", force: :cascade do |t|
-    t.integer  "member_id",      limit: 4
+    t.integer  "user_id",        limit: 4
     t.text     "reason",         limit: 65535
     t.date     "effective_date"
     t.datetime "created_at",                   null: false
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 20150626205707) do
     t.boolean  "active",      limit: 1,   default: true
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+  end
+
+  create_table "member_groups", force: :cascade do |t|
+    t.integer  "group_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.boolean  "admin",      limit: 1, default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "members", force: :cascade do |t|
@@ -65,7 +73,7 @@ ActiveRecord::Schema.define(version: 20150626205707) do
     t.datetime "expires_at"
     t.text     "attachment_url", limit: 65535
     t.integer  "group_id",       limit: 4
-    t.integer  "member_id",      limit: 4
+    t.integer  "user_id",        limit: 4
     t.boolean  "public",         limit: 1
     t.integer  "approved_by",    limit: 4
     t.datetime "created_at",                   null: false
@@ -80,19 +88,20 @@ ActiveRecord::Schema.define(version: 20150626205707) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.integer  "role_id",                limit: 4,   default: 4
+    t.boolean  "deactivated",            limit: 1,   default: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

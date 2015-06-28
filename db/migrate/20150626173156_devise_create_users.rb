@@ -5,6 +5,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string  :email,              null: false, default: ""
       t.string  :encrypted_password, null: false, default: ""
       t.integer :role_id, default: 4
+      t.boolean :deactivated, default: false
 
       ## Recoverable
       t.string   :reset_password_token
@@ -34,8 +35,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    User.create :email => 'boss@kanveng.com', :encrypted_password => '$2a$10$3b78sOFsPb9Wi/zMvxb99e2M4ZTAl45blqAJqzTiFI9xhlxK9Mf92'
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true

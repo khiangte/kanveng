@@ -1,8 +1,10 @@
 class Member < ActiveRecord::Base
 	scope :active, -> { where(active: true) }
+	scope :verified, -> {where(verified: true)}
+	scope :unverified, -> {where(verified: false)}
 	belongs_to :user
 
-	has_many :posts
+	
 
 	# 		t.string			:full_name
  	#    	t.date 				:dob
@@ -15,4 +17,8 @@ class Member < ActiveRecord::Base
 	#     t.text				:address
 	#     t.boolean			:verified, default: false
 	#     t.integer 		:user_id
+
+	def is_verified?
+		verified
+	end
 end

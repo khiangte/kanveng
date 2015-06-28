@@ -4,6 +4,7 @@ module MembersHelper
 	end
 
 	def profile_photo(photo_url = "him.png", size="100x100", alt = "Member", class_name = 'img-circle')
+		photo_url = "him.png" if photo_url.blank?
 		image_tag(photo_url, size: size, alt: alt, :class => class_name)
 	end
 

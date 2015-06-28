@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
 	enum post_type: [ :Announcement, :Suggestion, :Question, :Complaint ]
 	scope :active, -> { where('expires_at > ?', Time.now) }
 	scope :approved, -> {where.not(:approved_by => nil)}
+	scope :unapproved, -> {where(:approved_by => nil)}
 	scope :open,	-> {where(:public => true)}
 	# 	    	t.string		:title
 	#     	t.text			:content
@@ -13,10 +14,14 @@ class Post < ActiveRecord::Base
 	#     	t.boolean		:public
 	#     	t.integer		:approved_by
 
-	belongs_to :member
+	belongs_to :user
 
 	def approver
-		Member.find_by_id(approved_by)
+		User.find_by_id(approved_by)
+	end
+
+	def member
+		user.member
 	end
 
 end

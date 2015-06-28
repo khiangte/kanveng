@@ -7,7 +7,7 @@ class CreatePosts < ActiveRecord::Migration
     	t.datetime	:expires_at
     	t.text			:attachment_url
     	t.integer		:group_id
-    	t.integer		:member_id
+    	t.integer		:user_id
     	t.boolean		:public
     	t.integer		:approved_by
 

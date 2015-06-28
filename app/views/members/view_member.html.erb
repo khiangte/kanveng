@@ -2,16 +2,13 @@
 <% if @member.nil? %>
 	Member profile not found! It may have been deleted!
 <% else %>
-	<div class="panel panel-default">
-	  	<div class="panel-body">
 		  	<div class="row text-center">
 		    <%= profile_photo(@member.photo_url)%>
 	    	</div>
 	    	<div class="icon-buttons">
-	    	<%= link_to font_awesome('pencil'), edit_member_path(:id => @member.id), :title => 'Edit Member' %> 
-	    	<%= link_to font_awesome('trash-o'), "#", :title => 'Deactivate Member' %>
-	    	<%= link_to font_awesome('envelope-o'), "#", :title => 'Email' %>
-	    	<%= link_to font_awesome('comment'), "#", :title => 'Send SMS' %>
+	    	<%= link_to (font_awesome('pencil') + " Edit"), edit_member_path(:id => @member.id), :title => 'Edit Member' %>
+	    	<%= link_to (font_awesome('check') + " Approve"), "#", :title => 'Edit Member' %>
+	    	
 	    	</div>
 	    	<hr />
 	  	</div>
@@ -32,7 +29,5 @@
 	    			<td class="profile_table" >Address</td><td><%= simple_format(@member.address) %></td>
 	    		</tr>
 				</table>
-	    	</div>	    	
-	</div>
 <% end %>
 </div>

@@ -4,6 +4,7 @@ class CreateGroups < ActiveRecord::Migration
     	t.string				:name
     	t.string				:description
     	t.integer				:group_type
+    	t.text					:photo_url
     	t.boolean				:active, default: true
 
       t.timestamps null: false

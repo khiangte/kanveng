@@ -21,4 +21,24 @@ class Role < ActiveRecord::Base
 		level == 3
 	end
 
+	def isMaster?
+		level == 1
+	end
+
+	def is_all_admin?
+		[1,2].include? level
+	end
+
+	def is_group_admin?
+		level == 3
+	end
+
+	def is_not_admin?
+		level == 4
+	end
+
+	def self.admin_roles
+		[1,2]
+	end
+
 end
