@@ -3,27 +3,39 @@
 	Member profile not found! It may have been deleted!
 <% else %>
 		  	<div class="row text-center">
-		    <%= profile_photo(@member.photo_url)%>
+		    	<%= profile_photo(@member.photo_url)%>
 	    	</div>
 	    	<div class="icon-buttons">
-	    	<%= link_to (font_awesome('pencil') + " Edit"), edit_member_path(:id => @member.id), :title => 'Edit Member' %>
-	    	<%= link_to (font_awesome('check') + " Approve"), "#", :title => 'Edit Member' %>
-	    	
+	    		<% if current_user.is_all_admin? || current_user.member == @member %>
+		    	<%= link_to (font_awesome('pencil') + " Edit"), edit_member_path(:id => @member.id), :title => 'Edit Member' %>
+		    	<% end %>
+		    	<% if current_user.is_all_admin? %>
+		    	<span id="verification_div">
+		    		<%= (link_to (font_awesome('check') + " Verify"), "#", :title => 'Mark this member verified', :id => 'verify_member', :val => @member.id) unless @member.verified %>
+		    	</span>
+		    	<% end %>
 	    	</div>
 	    	<hr />
-	  	</div>
+	  		</div>
 	    	<div class="row">
 	    		<table class="table">
-	    		<tr>
-	    			<td class="profile_table" >Membership Number</td><td><%= @member.epic_no %></td>
-	    		</tr>
 	    		<tr>
 	    			<td class="profile_table" >Name</td><td><%= @member.full_name %></td>
 	    		</tr>
 	    		<tr>
-	    			<td class="profile_table" >Date of Birth</td><td><%= @member.dob %>, Age <%= age(@member.dob) %></td>
+	    			<td class="profile_table" >EPIC Number</td><td><%= @member.epic_no %></td>
 	    		</tr>
 	    		<tr>
+	    			<td class="profile_table" >Date of Birth</td><td><%= @member.dob %>, Age call age(@member.dob)</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="profile_table" >Gender</td><td><%= @member.sex %> .capitalize</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="profile_table" >Birth Place</td><td><%= @member.birth_place %></td>
+	    		</tr>
+	    		<tr>
+	    			<td class="profile_table" >Occupation</td><td><%= @member.occupation %></td>
 	    		</tr>
 	    		<tr>
 	    			<td class="profile_table" >Address</td><td><%= simple_format(@member.address) %></td>
@@ -31,3 +43,21 @@
 				</table>
 <% end %>
 </div>
+<% if @member && !@member.verified && current_user.is_all_admin? %>
+<script type="text/javascript">
+	$("#verify_member").on('click', function(){
+    jQuery.ajax({
+            data : {
+                id : jQuery("#verify_member").attr('val')
+            },
+            url : '/verify_member',
+            success : function(result) {
+                jQuery("span#verification_div").html(result.result);
+            },
+            error: function() {
+                alert('Something went wrong. Please report this problem.');
+            }
+        });
+	});
+</script>
+<% end %>

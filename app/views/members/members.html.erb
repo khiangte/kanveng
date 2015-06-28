@@ -33,4 +33,23 @@
         $("#search_btn").click();
     }
 });
+function search(){
+    if(jQuery("#key_word").val().trim().length > 0){
+        jQuery.ajax({
+            data : {
+                search_param : jQuery("#key_word").val().trim()
+            },
+            url : '/search_members',
+            success : function(result) {
+
+                jQuery("div#members_rows").html('<table class="table">' + result.message + '</table>');
+            },
+            error: function() {
+                alert('Something went wrong. Please report this problem.');
+            }
+        });
+    }else{
+        jQuery("div#members_rows").html('<table class="table">No Results!</table>');
+    }
+}
 </script>

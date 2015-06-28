@@ -15,22 +15,22 @@
 			<% end %>
 		</div>
 	</div>
-<% end %>
-<% if !@post.approved_by && current_user.role.can_approve_public_post? %>
-<script type="text/javascript">
-	$("#approve").on('click', function(){
-    jQuery.ajax({
-            data : {
-                id : jQuery("#approve").attr('val')
-            },
-            url : '/approve_post',
-            success : function(result) {
-                jQuery("div#approval_div").html(result.result);
-            },
-            error: function() {
-                alert('Something went wrong. Please report this problem.');
-            }
-        });
-	});
-</script>
+	<% if !@post.approved_by && current_user.role.can_approve_public_post? %>
+		<script type="text/javascript">
+			$("#approve").on('click', function(){
+		    jQuery.ajax({
+		            data : {
+		                id : jQuery("#approve").attr('val')
+		            },
+		            url : '/approve_post',
+		            success : function(result) {
+		                jQuery("div#approval_div").html(result.result);
+		            },
+		            error: function() {
+		                alert('Something went wrong. Please report this problem.');
+		            }
+		        });
+			});
+		</script>
+	<% end %>
 <% end %>

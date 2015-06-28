@@ -1,10 +1,19 @@
+<div class="header">
+<div class="col-xs-4 right"><%= link_to (font_awesome("newspaper-o") + " POSTS"), "#" %>
+</div>
+<div class="col-xs-4 center"><%= link_to (font_awesome("users") + " MEMBERS"), "#" %>
+</div>
+<div class="col-xs-4"><%= link_to (font_awesome("share-alt") + " GROUPS"), manage_groups_path %>
+</div>
+</div>
 Admin will see new posts/member profiles to be approved,
 see various links like Deactivating Members/ Create public Announcements/ Emergency Alert/ Create new group/ Appoint admins to groups
 
 <div class="header"><%= font_awesome('newspaper-o') %> Unapproved Posts</div>
 <div class="contents">
 	<% @unapproved_posts.each do |post| %>
-		<%= font_awesome('calendar') %> <b><%= link_to post.title, post_path(:id=> post.id) %></b> <%= post.public ? font_awesome('globe') : font_awesome('unlock') %><br />
+		<%= font_awesome('calendar') %> <b><%= link_to post.title, post_path(:id=> post.id) %></b> 
+		<%= font_awesome('globe') if post.public %>  <%= font_awesome('unlock') if post.group %><br />
 			<%= font_awesome('user') %> <%= link_to post.member.full_name, member_path(:id => post.member.id) %> <br />
 			<br />
 	<% end %>

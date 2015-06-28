@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :groups, :through => :member_groups
   has_many :member_groups
+  has_many :requests
 
   scope :admins, -> { where('role_id in (?)', Role.admin_roles) }
 
@@ -16,4 +17,39 @@ class User < ActiveRecord::Base
   	role.is_all_admin?
   end
 
+  def full_name
+    member.full_name
+  end 
+
+  def is_group_admin?
+    role.is_group_admin?
+  end
+  
+  def visible_posts
+    Post.active.approved.where("public = ? or group_id in (?)", true, groups.map(&:id))
+  end
+
+  def older_posts
+    Post.notactive.approved.where("public = ? or group_id in (?)", true, groups.map(&:id)).limit(10)
+  end
+
+  def is_admin_of?(group)
+    if group.instance_of? Group
+      group.admins.include?(self)
+    else
+      false
+    end
+  end
+
+  def is_member_of?(group)
+    if group.instance_of? Group
+      group.members.include?(self)
+    else
+      false
+    end
+  end
+
+  def verified?
+    member.verified?
+  end
 end

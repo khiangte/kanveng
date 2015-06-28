@@ -21,9 +21,60 @@
 			    <%= f.label :group_type %> 
 			  	<%= f.select(:group_type, options_for_select([['NGO','NGO'],['Church','Church'],['Institution','Institution'],['Government','Government']]),{},{:class => "form-control"}) %>
 		  </div>
+		  <% if current_user.is_all_admin? %>
+		  	<%= hidden_field_tag :admin_id,nil, :value => @group.admins.first.try(:id) %>
+				<%= f.label :admin_id %>
+			  <div class="input-group">
+				  	<%= text_field_tag(:key_word, @group.admins.first.try(:full_name), {:class => "form-control", :autocomplete => :off}) %>
+				  	<span class="input-group-btn">
+			        <button id = "search_btn" class="btn btn-default" type="button" onclick="search()">Search</button>
+			      </span>
+			  </div>
+			  <div id="results_div">
+
+			  </div>
+
+			<% end %>
+		  <br />
 		  <%= f.hidden_field :id, :value => @group.id %>
 	  <div class="form-group">
 	    <%= f.submit :class => "btn btn-default" %>
 	  </div>
 	</form>
+<% end %>
+
+<% if current_user.is_all_admin? %>
+
+	<script type="text/javascript">
+
+		$("#key_word").keyup(function(event){
+	        $("#search_btn").click();
+		});
+
+		function search(){
+		    if(jQuery("#key_word").val().trim().length > 0){
+		        jQuery.ajax({
+		            data : {
+		                search_param : jQuery("#key_word").val().trim()
+		            },
+		            url : '/search_members_for_form',
+		            success : function(result) {
+
+		                jQuery("div#results_div").html('<table class="table">' + result.message + '</table>');
+		                jQuery(".admin_name").click(function(){
+										  obj = $(this);
+											jQuery("#key_word").val(obj.attr('name'));
+											jQuery("#admin_id").val(obj.attr('user_id'));
+											jQuery("div#results_div").html('');
+										});
+		            },
+		            error: function() {
+		                alert('Something went wrong. Please report this problem.');
+		            }
+		        });
+		    }else{
+		        jQuery("div#results_div").html('<table class="table">No Results!</table>');
+		    }
+		}
+	</script>
 <% end %>

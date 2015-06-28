@@ -23,13 +23,30 @@ class MembersController < ApplicationController
 		#improve this search... why am i limitting the attributes
 		result = "No Results!"
 		unless params[:search_param].blank?
-			@members = Member.active.select(:id, :firstname, :lastname, :photo_url, :membership_no, :membership_type)
-			.where("full_name like ? or epic_no = ?", "%#{params[:search_param]}%", params[:search_param],)
+			@members = Member.active.verified.select(:id, :full_name, :photo_url, :epic_no)
+			.where("full_name like ? or epic_no = ?", "%#{params[:search_param]}%", params[:search_param])
 			.order(:full_name)
 			unless @members.blank?
 				result = ""
 				@members.each do |member| #view_context here to call helper method from controller
 					result += view_context.member_search_row_html(member)
+				end
+			end
+		end
+		render :json => {:success => true, :message => result }
+	end
+
+	def search_members_for_form
+		#improve this search... why am i limitting the attributes
+		result = "No Results!"
+		unless params[:search_param].blank?
+			@members = Member.active.verified.select(:id, :full_name, :photo_url, :epic_no, :user_id)
+			.where("full_name like ? or epic_no = ?", "%#{params[:search_param]}%", params[:search_param])
+			.order(:full_name)
+			unless @members.blank?
+				result = ""
+				@members.each do |member| #view_context here to call helper method from controller
+					result += view_context.member_form_search_row_html(member)
 				end
 			end
 		end
@@ -55,7 +72,7 @@ class MembersController < ApplicationController
  #  end
 
 	def edit_member
-		if current_user.is_all_admin? || current_user.member.id == params[:id]
+		if current_user.is_all_admin? || current_user.member.id.to_s == params[:id]
 			@member = Member.active.find_by_id(params[:id])
 		else
 			@member = nil
@@ -72,11 +89,11 @@ class MembersController < ApplicationController
 	# 	flash[:notice] = "Member profile " + @member.fullname + " deactivated"
 	# 	redirect_to root_path
 	# end
-	def approve_member
-		post = Post.find_by_id(params[:id])
-		post.approved_by = current_user.id
-		if post.save
-			render :json => {:success => true, :result => "Approved by #{current_user.member.full_name}"}
+	def verify_member
+		member = Member.find_by_id(params[:id])
+		member.verified = true
+		if member.save
+			render :json => {:success => true, :result => ("Verified " + view_context.font_awesome('check-circle-o')).html_safe}
 		end
 	end
 

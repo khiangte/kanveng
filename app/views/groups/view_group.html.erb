@@ -3,9 +3,84 @@
 <% else %>
 	<div class="panel panel-default">
 	  <div class="panel-body">
+	  <div class="logo pull-right"><%= group_logo()%>
+	  </div>
 	  Also a photo: to be updated when migration is run
 		 	<h3><%= group_icon(@group.group_type) %> <%=@group.name %></h3>
-	    	<%= simple_format(@group.description) %>  	
+		 	<hr />
+	    	<%= simple_format(@group.description) %>  
+	    	<div class="pull-right">
+			 		<%= font_awesome('users') + " #{@group.members.count}"%>
+			 		<%= font_awesome('newspaper-o') + " #{@group.posts.count}"%> 
+		 		</div>
+	    	<% if user_signed_in? %>
+		    	<% if (current_user.is_all_admin? || current_user.is_admin_of?(@group)) %> 
+			    	<%= link_to 'Edit', edit_group_path(:id => @group.id) %> 
+			    	<%= link_to "Join Requests(#{@group.requests.count})", requests_path %>
+		    	<% elsif current_user.verified? && (!current_user.groups.include?(@group)) && (!@group.requests.map(&:user_id).include?(current_user.id))%>
+		    		<div id="join_request_div">
+			    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Request Join</button>
+
+						<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						  <div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="exampleModalLabel">Include a message?</h4>
+						      </div>
+						      <div class="modal-body">
+						      Send a join request to <br /><b><%= @group.name %></b>
+					        <form>
+					          <div class="form-group">
+					            <label for="message-text" class="control-label">Message:</label>
+					            <textarea class="form-control" id="request_message"></textarea>
+					          </div>
+					        </form>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal" id="send_request_btn" user=<%=@current_user.id%> group=<%= @group.id %>>Send request</button>
+					      </div>
+						    </div>
+						  </div>
+						</div>
+						</div>
+						<script type="text/javascript">
+							$("#send_request_btn").on('click', function(){
+						    jQuery.ajax({
+						            data : {
+						                user_id : jQuery("#send_request_btn").attr('user'),
+						                group_id : jQuery("#send_request_btn").attr('group'),
+						                message : jQuery("#request_message").val()
+						            },
+						            url : '/request_join_group',
+						            success : function(result) {
+						                jQuery("div#join_request_div").html("Join request sent");
+						                $('.modal-backdrop').remove();
+						            },
+						            error: function() {
+						                alert('Something went wrong. Please report this problem.');
+						    						$('.modal-backdrop').remove();
+
+						            }
+						        });
+							});
+						</script>
+		    	<% end %>	
+		    	<% if current_user.is_member_of?(@group) %>
+		    		<%= link_to 'Create a post', new_post_path(:group_id => @group.id) %> 
+		    	<% end %>
+		    <% end %>
 		</div>
+	<% end %>
 	</div>
+	<% unless @posts.blank? %>
+	<h4><%= font_awesome('newspaper-o') %> Posts </h4>
+			<% @posts.each do |post| %>
+				<b><%= link_to post.title, post_path(:id=> post.id) %></b><br />
+				<%= simple_format(post.content) %>
+				<b> <%= post.user.member.full_name %></b>
+				<b> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %></b></i> 
+				<br />
+		<% end %>
 <% end %>

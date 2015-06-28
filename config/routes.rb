@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   # get 'deactivate_member/:id' => 'members#deactivate_member', :as => 'deactivate_member'
   get 'members' => 'members#members', :as => 'members'
   get 'search_members' => 'members#search_members', :as => 'search_members'
+  get 'verify_member' => 'members#verify_member', :as => 'verify_member' 
+  get 'search_members_for_form' => 'members#search_members_for_form', :as => 'search_members_for_form'
   # get 'autosuggest_member' => 'members#autosuggest_member', :as => 'autosuggest_member'
 
 #posts
@@ -30,8 +32,12 @@ Rails.application.routes.draw do
   get 'edit_group/:id' => 'groups#edit_group', :as => 'edit_group'
   post 'update_group' => 'groups#update_group', :as => 'update_group'
   get 'groups' => 'groups#groups', :as => 'groups'
+  get 'request_join_group' => 'groups#request_join_group', :as => 'request_join_group'
+  get 'approve_join_request' => 'groups#approve_join_request', :as => 'approve_join_request'
+  get 'requests/:id' => 'groups#join_requests', :as => 'requests' 
 
 
 #AdminDashboard
   get 'admin_dashboard' => 'admin_dashboard#index', :as => 'admin_dashboard'
+  get 'manage_groups' => 'admin_dashboard#manage_groups', :as => 'manage_groups'
 end

@@ -5,8 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
   	super
-  	debugger
-    # add custom create logic here
+    current_user.create_member
   end
 
   def update

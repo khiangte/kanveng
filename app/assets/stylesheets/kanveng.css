@@ -11,8 +11,15 @@
  /*.profile-container {
  	margin-top: 2em;
  }*/
+.center{
+    text-align: center;
+}
 
-.icon-buttons a {
+.right{
+    text-align: right;
+}
+
+.icon-buttons, .icon-buttons a {
 	font-size: 16px;
     letter-spacing: 0.2em;
 	color: #5E5E5E;
