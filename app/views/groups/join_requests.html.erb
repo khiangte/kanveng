@@ -1,0 +1,31 @@
+<div class="row" id = "members_rows">
+	<table class = "table">
+		<% if @group %>
+		<div class="header">
+			Join Requests to <b><%= @group.name %></b>
+		</div>
+		<%= "No Requests!" if @requests.blank? %>
+			<% @requests.each do |req| %>
+				<%= member_request_row_html(req.user.member, @group.id).html_safe %><br />
+				<%= req.message %><br />
+			<% end %>
+			<script type="text/javascript">
+				$(".approve_btn").click(function(){
+				  obj = $(this);
+					jQuery.ajax({
+	            data : {
+	                request_id : obj.attr('request_id')
+	            },
+	            url : '/approve_join_request',
+	            success : function(result) {
+	                jQuery("tr#request_"+obj.attr('request_id')).html("");
+	            },
+	            error: function(result) {
+	                alert(result.message);
+	            }
+	        });
+				});
+			</script>
+		<% end %>
+	</table>
+</div>

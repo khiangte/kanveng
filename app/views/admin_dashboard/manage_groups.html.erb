@@ -1,0 +1,22 @@
+<div class="header">
+<div class="col-xs-4 right"><%= link_to (font_awesome("newspaper-o") + " POSTS"), "#" %>
+</div>
+<div class="col-xs-4 center"><%= link_to (font_awesome("users") + " MEMBERS"), "#" %>
+</div>
+<div class="col-xs-4"><%= font_awesome("share-alt") + " GROUPS" %>
+</div>
+</div>
+Admin will see new posts/member profiles to be approved,
+see various links like Deactivating Members/ Create public Announcements/ Emergency Alert/ Create new group/ Appoint admins to groups
+
+<div class="row contents">
+	<% @groups.each do |group| %>
+	<div class="col-xs-6">
+		<h3><%= group.name %></h3>
+		<%= group.description %><br >
+		<%= font_awesome('users') + " #{group.users.count} "%>
+		<%= font_awesome('newspaper-o') + " #{group.posts.count}"%>
+		<%= font_awesome('user-plus') + " #{group.requests.count}"%>
+	</div>
+	<% end %>
+</div>
