@@ -4,11 +4,12 @@ Rails.application.routes.draw do
 
   #members
   post 'create_member' => 'members#create_member', :as => 'create_member'
-  get 'new_member' => 'members#new_member', :as => 'new_member'
+  # get 'new_member' => 'members#new_member', :as => 'new_member'
   get 'member/:id' => 'members#view_member', :as => 'member'
   get 'edit_member/:id' => 'members#edit_member', :as => 'edit_member'
-  post 'update_member' => 'members#update_member', :as => 'update_member'
-  # get 'deactivate_member/:id' => 'members#deactivate_member', :as => 'deactivate_member'
+  post 'update_member' => 'members#update_member', :as => 'update_member' 
+  get 'deactivate_member' => 'members#deactivate_member', :as => 'deactivate_member'
+  get 'reactivate_member' => 'members#reactivate_member', :as => 'reactivate_member'
   get 'members' => 'members#members', :as => 'members'
   get 'search_members' => 'members#search_members', :as => 'search_members'
   get 'verify_member' => 'members#verify_member', :as => 'verify_member' 
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
   get 'request_join_group' => 'groups#request_join_group', :as => 'request_join_group'
   get 'approve_join_request' => 'groups#approve_join_request', :as => 'approve_join_request'
   get 'requests/:id' => 'groups#join_requests', :as => 'requests' 
+  get 'pending_group_posts/:id' => 'groups#pending_group_posts', :as => 'pending_group_posts'
 
 
 #AdminDashboard

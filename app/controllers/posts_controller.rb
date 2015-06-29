@@ -50,9 +50,8 @@ class PostsController < ApplicationController
 	end
 
 	def approve_post
-		#also add if the post belongs to group then add group admin of that group
-		if current_user.role.can_approve_public_post?
-			post = Post.find_by_id(params[:id])
+		post = Post.find_by_id(params[:id])
+		if post && post.group.nil? && current_user.is_all_admin? || post && current_user.is_admin_of?(post.group)
 			post.approved_by = current_user.id
 			if post.save
 				render :json => {:success => true, :result => "Approved by #{current_user.member.full_name}"}

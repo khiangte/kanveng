@@ -1,20 +1,93 @@
 <div class="profile-container">
 <% if @member.nil? %>
-	Member profile not found! It may have been deleted!
+	Member profile not found! It may have been deactivated!
 <% else %>
 		  	<div class="row text-center">
 		    	<%= profile_photo(@member.photo_url)%>
 	    	</div>
-	    	<div class="icon-buttons">
+	    	<div class="icon-buttons" id="member-options">
 	    		<% if current_user.is_all_admin? || current_user.member == @member %>
 		    	<%= link_to (font_awesome('pencil') + " Edit"), edit_member_path(:id => @member.id), :title => 'Edit Member' %>
 		    	<% end %>
 		    	<% if current_user.is_all_admin? %>
-		    	<span id="verification_div">
-		    		<%= (link_to (font_awesome('check') + " Verify"), "#", :title => 'Mark this member verified', :id => 'verify_member', :val => @member.id) unless @member.verified %>
-		    	</span>
+		    		<% if @member.active %>
+				    	<span id="verification_div">
+				    		<%= (link_to (font_awesome('check') + " Verify"), "#", :title => 'Mark this member verified', :id => 'verify_member', :val => @member.id) unless @member.verified %>
+				    	</span>
+				    	<span id="deactivation_div">
+				    		<a href="#" data-toggle="modal" data-target=".bs-example-modal-sm"><%= font_awesome('trash') %> Deactivate</a>
+				    	</span>
+				   		</div>
+							<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							  <div class="modal-dialog modal-sm">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="exampleModalLabel">Are you sure?</h4>
+							      </div>
+							      <div class="modal-body">
+							      Effective from: 
+
+							      <div class="form-group">
+				                <div class='input-group date'>
+				                    <input type='text' id="effective_date" class="form-control" />
+				                    <span class="input-group-addon">
+				                        <%= font_awesome('calendar') %>
+				                    </span>
+				                </div>
+				            </div>
+										<script type="text/javascript">
+						            $(function () {
+						                $('#effective_date').datetimepicker({
+						                	timepicker:false,
+						                	format:'Y-m-d'
+						                });
+						            });
+						        </script>
+						        <form>
+						          <div class="form-group">
+						            <label for="message-text" class="control-label">Reason:</label>
+						            <textarea class="form-control" id="reason"></textarea>
+						          </div>
+						        </form>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						        <button type="button" class="btn btn-default" data-dismiss="modal" id="deactivate_btn" user=<%=@member.user_id %> >Deactivate</button>
+						      </div>
+							    </div>
+							  </div>
+							</div>
+							</span>
+							<script type="text/javascript">
+								$("#deactivate_btn").on('click', function(){
+									if($("#effective_date").val().trim().length == 0 || $("#reason").val().trim().length == 0)
+										alert("Please fill all fields");
+									else{
+								    jQuery.ajax({
+								            data : {
+								                user_id : jQuery("#deactivate_btn").attr('user'),
+								                effective_date : jQuery("#effective_date").val(),
+								                reason : jQuery("#reason").val()
+								            },
+								            url : '/deactivate_member',
+								            success : function(result) {
+								                jQuery("div#member-options").html("Deactivated");
+								                $('.modal-backdrop').remove();
+								            },
+								            error: function() {
+								                alert('Something went wrong. Please report this problem.');
+								    						$('.modal-backdrop').remove();
+
+								            }
+								        });
+								  }
+								});
+							</script>
+						<% else %>
+							<%= link_to "Reactivate", reactivate_member_path(:user_id => @member.user_id) %>
+						<% end %>
 		    	<% end %>
-	    	</div>
 	    	<hr />
 	  		</div>
 	    	<div class="row">

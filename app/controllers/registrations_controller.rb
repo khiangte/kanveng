@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
   	super
-    current_user.create_member
+    current_user.create_member if user_signed_in?
   end
 
   def update

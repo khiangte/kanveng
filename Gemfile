@@ -24,6 +24,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 #authentication
 gem 'devise'
+
+#localtime simplifier
+gem 'local_time'
+
+#bootstrap datetimepicker
+# gem 'momentjs-rails', '>= 2.9.0'
+# gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

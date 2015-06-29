@@ -11,6 +11,6 @@ class Group < ActiveRecord::Base
 	end
 
 	def members
-		member_groups.collect{|d| d.user }
+		member_groups.collect{|d| d.user unless d.user.deactivated }
 	end
 end

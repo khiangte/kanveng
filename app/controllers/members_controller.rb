@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-	before_action :authenticate_user!
+	before_action :authenticate_user!, :except => [:view_member]
 
 	def new_member
 		@member = Member.new
@@ -80,20 +80,57 @@ class MembersController < ApplicationController
 	end
 
 	def view_member
-		@member = Member.active.find_by_id(params[:id])
+		if user_signed_in? && current_user.is_all_admin?
+			@member = Member.find_by_id(params[:id])
+		else
+			@member = Member.active.find_by_id(params[:id])
+		end
 	end
 
-	# def deactivate_member
-	# 	@member = Member.find_by_id(params[:id])
-	# 	@member.active = false
-	# 	flash[:notice] = "Member profile " + @member.fullname + " deactivated"
-	# 	redirect_to root_path
-	# end
+	def deactivate_member
+		if current_user.is_all_admin?
+			user = User.find_by_id(params[:user_id])
+			member = user.member
+			member.active = false
+			member.save
+			user.deactivated = true
+			user.save
+			Deactivation.create :user_id => user.id, :effective_date => params[:effective_date].to_date, :reason => params[:reason]
+			render :json => {:message => "Deactivated"}
+		else
+			render :json => {:message => "Error"}
+		end
+	end
+
+	def reactivate_member
+		if current_user.is_all_admin?
+			user = User.find_by_id(params[:user_id])
+			member = user.member
+			member.active = true
+			member.save
+			user.deactivated = false
+			user.save
+			x = Deactivation.find_by user_id: user.id
+			x.delete
+			flash[:notice] = "Reactivated member"
+			redirect_to member_path(:id => member.id)
+		else
+			flash[:notice] = "Not Authorised"
+			redirect_to root_path
+		end
+	end
+
 	def verify_member
-		member = Member.find_by_id(params[:id])
-		member.verified = true
-		if member.save
-			render :json => {:success => true, :result => ("Verified " + view_context.font_awesome('check-circle-o')).html_safe}
+		if current_user.is_all_admin?
+			member = Member.find_by_id(params[:id])
+			member.verified = true
+			if member.save
+				render :json => {:success => true, :result => ("Verified " + view_context.font_awesome('check-circle-o')).html_safe}
+			else
+			render :json => {:message => "Error"}
+			end
+		else
+			render :json => {:message => "Error"}
 		end
 	end
 

@@ -16,7 +16,8 @@
 	    	<% if user_signed_in? %>
 		    	<% if (current_user.is_all_admin? || current_user.is_admin_of?(@group)) %> 
 			    	<%= link_to 'Edit', edit_group_path(:id => @group.id) %> 
-			    	<%= link_to "Join Requests(#{@group.requests.count})", requests_path %>
+			    	<%= link_to "Join Requests(#{@group.requests.count})", requests_path(:id => @group.id) %>
+			    	<%= link_to "Pending Posts(#{@group.posts.unapproved.count})", pending_group_posts_path(:id => @group.id) %>
 		    	<% elsif current_user.verified? && (!current_user.groups.include?(@group)) && (!@group.requests.map(&:user_id).include?(current_user.id))%>
 		    		<div id="join_request_div">
 			    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Request Join</button>

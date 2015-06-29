@@ -49,6 +49,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  #devise --deactivated account check
+  def active_for_authentication?
+    super && !self.deactivated # i.e. super && self.is_active
+  end
+
+  def inactive_message
+    "Sorry, this account has been deactivated."
+  end
+
   def verified?
     member.verified?
   end

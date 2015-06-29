@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-	before_action :authenticate_user!
+	before_action :authenticate_user!, :except => [:view_group] 
 
 	def new_group
 		if current_user.is_all_admin?
@@ -32,6 +32,16 @@ class GroupsController < ApplicationController
 	  	flash[:notice] = "Group Profile Not Created"
 	  	redirect_to root_path
 	  end
+	end
+
+	def pending_group_posts
+		@group = Group.active.find_by_id(params["id"])
+		if current_user.is_admin_of? @group	
+			@posts = @group.posts.unapproved
+		else
+			flash[:notice] = "Only group admin can approve posts"
+			redirect_to group_path(:id => params[:id])
+		end
 	end
 
 	def approve_join_request
@@ -99,7 +109,7 @@ class GroupsController < ApplicationController
 
 	def view_group
 		@group = Group.active.find_by_id(params[:id])
-		if @group && current_user.is_member_of?(@group)
+		if @group && user_signed_in? && current_user.is_member_of?(@group)
 			@posts = @group.posts.active.approved
 		elsif @group
 			@posts = @group.posts.active.approved.open

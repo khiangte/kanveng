@@ -9,12 +9,12 @@
 	<form>
 		  <div class="form-group">
 		    <%= f.label :title %><br />
-		    <%= f.text_field :title, :class => "form-control", :placeholder=>"Name" %>
+		    <%= f.text_field :title, :class => "form-control", :placeholder=>"Title" %>
 		  </div>
 
 		  <div class="form-group">
 		    <%= f.label :content %><br />
-		    <%= f.text_area :content, :class => "form-control", :placeholder=>"Address" %>
+		    <%= f.text_area :content, :class => "form-control", :placeholder=>"Content" %>
 	  	</div>
 		  
 			<div class="form-group">
@@ -24,7 +24,7 @@
 		  <div class="row">
 		  <div class="col-xs-6">
 			  <div class="form-group">
-				    <%= f.label :public %>{make this radio button} 
+				    <%= f.label :public %> 
 				  	<%= f.select(:public, options_for_select([['Yes',1],['No',0]]),{},{:class => "form-control"}) %>
 			  </div>
 			</div>
@@ -49,3 +49,14 @@
 	  </div>
 	</form>
 <% end %>
+<script type="text/javascript">
+	$("#post_group_id").change(function(){
+		if($("#post_group_id").val()==0)
+			$("#post_public").val(1);
+	});
+
+	$("#post_public").change(function(){
+		if($("#post_group_id").val()==0)
+			$("#post_public").val(1);
+	});
+</script>
