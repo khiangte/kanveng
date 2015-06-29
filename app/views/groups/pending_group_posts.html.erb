@@ -1,0 +1,32 @@
+<div class="row">
+	<table class = "table">
+		<% if @group %>
+		<div class="header">
+			Unapproved posts to <b><%= @group.name %></b>
+		</div>
+		<%= "No Requests!" if @posts.blank? %>
+			<% @posts.each do |p| %>
+				<%= link_to p.title, post_path(:id => p.id) %><br />
+				<%= p.content %><br />
+				Posted by <%= p.user.full_name %> at <%= p.created_at %><hr />
+			<% end %>
+			<script type="text/javascript">
+				$(".approve_btn").click(function(){
+				  obj = $(this);
+					jQuery.ajax({
+	            data : {
+	                request_id : obj.attr('request_id')
+	            },
+	            url : '/approve_join_request',
+	            success : function(result) {
+	                jQuery("tr#request_"+obj.attr('request_id')).html("");
+	            },
+	            error: function(result) {
+	                alert(result.message);
+	            }
+	        });
+				});
+			</script>
+		<% end %>
+	</table>
+</div>
