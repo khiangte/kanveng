@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-	before_action :authenticate_user!, :except => [:view_group] 
+	before_action :authenticate_user!, :except => [:view_group, :groups] 
 
 	def new_group
 		if current_user.is_all_admin?
@@ -72,12 +72,27 @@ class GroupsController < ApplicationController
 	end
 
 	def groups
-			@groups = Group.active.order('name')
+		@groups = Group.active.order('name')
+		@mygroups = []
+		if user_signed_in?
+			@mygroups = current_user.groups.active
+			@groups = @groups - @mygroups
+		end
+	end
+
+	def group_members
+		@group = Group.active.find_by_id(params[:id])
+		if current_user.is_member_of?(@group)
+			@members = @group.member_groups.limit(3).order("created_at desc").collect{|q| q.user.member}
+			@admins = @group.admins
+		else
+			redirect_to group_path(:id => @group)
+		end
 	end
 
 	def update_group
-		if current_user.is_all_admin? #add group admin also
-			@group = Group.active.find_by_id(group_params["id"])
+		@group = Group.active.find_by_id(group_params["id"])
+		if current_user.is_all_admin? || current_user.is_admin_of?(@group)
 			@group.update_attributes(group_params)
 			admin_user = User.find_by_id(params[:admin_id]) unless params[:admin_id].blank?
 			if admin_user

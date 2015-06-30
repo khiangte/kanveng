@@ -1,5 +1,5 @@
 <% if @group.nil? %>
-	Group not found! It may have been deleted!
+	You may need to log in to view this group!<br/>All public posts are visible on the home page.
 <% else %>
 	<div class="panel panel-default">
 	  <div class="panel-body">
@@ -70,6 +70,7 @@
 		    	<% end %>	
 		    	<% if current_user.is_member_of?(@group) %>
 		    		<%= link_to 'Create a post', new_post_path(:group_id => @group.id) %> 
+		    		<%= link_to 'Members', group_members_path(:id => @group.id) %>
 		    	<% end %>
 		    <% end %>
 		</div>

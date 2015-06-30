@@ -23,12 +23,27 @@ class MembersController < ApplicationController
 		#improve this search... why am i limitting the attributes
 		result = "No Results!"
 		unless params[:search_param].blank?
-			@members = Member.active.verified.select(:id, :full_name, :photo_url, :epic_no)
+			members = Member.active.verified.select(:id, :full_name, :photo_url, :epic_no)
 			.where("full_name like ? or epic_no = ?", "%#{params[:search_param]}%", params[:search_param])
 			.order(:full_name)
-			unless @members.blank?
+			unless members.blank?
 				result = ""
-				@members.each do |member| #view_context here to call helper method from controller
+				members.each do |member| #view_context here to call helper method from controller
+					result += view_context.member_search_row_html(member)
+				end
+			end
+		end
+		render :json => {:success => true, :message => result }
+	end
+
+	def search_group_members
+		result = "No Results!"
+		unless (params[:search_param].blank? || params[:group_id].blank?)
+				members = Member.find_by_sql("select m.* from members m join users on m.user_id = users.id join member_groups mg on users.id = mg.user_id 
+					and mg.group_id= #{params[:group_id]} and full_name like '%#{params[:search_param]}%' order by full_name")
+			unless members.blank?
+				result = ""
+				members.each do |member| #view_context here to call helper method from controller
 					result += view_context.member_search_row_html(member)
 				end
 			end
@@ -63,13 +78,6 @@ class MembersController < ApplicationController
 			redirect_to edit_member_path(:id => @member.id)
 		end
 	end
-
-	# def autosuggest_member
- #  	@suggest = Member.select("id, firstname, lastname, photo_url, membership_no").where("firstname LIKE ? or lastname LIKE ?", "%#{params[:member_name]}%","%#{params[:member_name]}%").limit(15) || []
- #  	result=[]
- #  	@suggest.each { |f| result << f.firstname }
- #  	render :json => {:sugg => result}
- #  end
 
 	def edit_member
 		if current_user.is_all_admin? || current_user.member.id.to_s == params[:id]

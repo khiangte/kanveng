@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'reactivate_member' => 'members#reactivate_member', :as => 'reactivate_member'
   get 'members' => 'members#members', :as => 'members'
   get 'search_members' => 'members#search_members', :as => 'search_members'
+  get 'search_group_members' => 'members#search_group_members', :as => 'search_group_members'
   get 'verify_member' => 'members#verify_member', :as => 'verify_member' 
   get 'search_members_for_form' => 'members#search_members_for_form', :as => 'search_members_for_form'
   # get 'autosuggest_member' => 'members#autosuggest_member', :as => 'autosuggest_member'
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
   get 'approve_join_request' => 'groups#approve_join_request', :as => 'approve_join_request'
   get 'requests/:id' => 'groups#join_requests', :as => 'requests' 
   get 'pending_group_posts/:id' => 'groups#pending_group_posts', :as => 'pending_group_posts'
+  get 'group_members/:id' => 'groups#group_members', :as => 'group_members'
 
 #contacts
   post 'create_contact' => 'contacts#create_contact', :as => 'create_contact'

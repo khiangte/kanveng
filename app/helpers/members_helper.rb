@@ -29,12 +29,11 @@ module MembersHelper
 		</tr>'
 	end
 
-	def member_request_row_html(member, request_id)
+	def member_request_row_html(member, request_id, msg)
 		'<tr id = request_' + request_id.to_s + ' >
 			<td width="10%">' + profile_photo(member.photo_url,"30x30") + '</td>
-			<td width="40%">' + link_to(member.full_name, member_path(:id => member.id)) + '</td>
-			<td width="30%" class="text-right"> <span class="badge">' + member.epic_no + '</span></td>
-			<td width="20%">' + link_to(font_awesome('check') + " Approve", "#", :request_id => request_id, :class => "approve_btn" ) + '</td>
+			<td width="70%">' + link_to(member.full_name, member_path(:id => member.id)) + ' &nbsp;&nbsp;&nbsp;' + msg + '</td>
+			<td width="20%" id= td_' + request_id.to_s + '>' + link_to(" Approve", "#", :request_id => request_id, :class => "approve_btn" ) + '</td>
 		</tr>'
 	end
 

@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
 	has_many :requests
 
 	def admins
-		member_groups.order(:updated_at).collect{|d| d.user if d.admin}
+		member_groups.where("admin = ?", true).order('updated_at desc').collect{|d| d.user.member}
 	end
 
 	def members

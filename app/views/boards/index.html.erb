@@ -1,8 +1,6 @@
 <%= "<h4>Please complete your #{link_to "profile", edit_member_path(:id => current_user.member.id)}!</h4>".html_safe if user_signed_in? && current_user.member.full_name.nil? %>
 
-<div class="header">
-	<%=font_awesome("newspaper-o") %> Public Posts (<%= @public_posts.count %>)
-</div>
+<h3><%=font_awesome("globe") %> Public Posts (<%= @public_posts.count %>)</h3>
 <div class="content">
 	<% @public_posts.each do |post|%>
 		<b><%= link_to post.title, post_path(:id=> post.id) %></b>

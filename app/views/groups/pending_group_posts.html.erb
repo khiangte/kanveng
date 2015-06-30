@@ -4,7 +4,7 @@
 		<div class="header">
 			Unapproved posts to <b><%= @group.name %></b>
 		</div>
-		<%= "No Requests!" if @posts.blank? %>
+		<%= "No Pending Posts!" if @posts.blank? %>
 			<% @posts.each do |p| %>
 				<%= link_to p.title, post_path(:id => p.id) %><br />
 				<%= p.content %><br />

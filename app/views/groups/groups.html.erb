@@ -1,9 +1,24 @@
-<div class="header">
-<%= font_awesome("share-alt") %> Groups
+<h3><%= font_awesome("share-alt") %> Groups
 <div class="icon-buttons pull-right">
 	<%= (link_to font_awesome('plus'), new_group_path, :title => 'New Post') if current_user.role.is_all_admin? %>
 </div>
-</div>
+</h3>
+<% unless @mygroups.blank? %>
+	<div class="header"> My Groups </div>
+		<div class="row">
+		<% @mygroups.each do |group| %>
+		<div class="col-xs-12 col-md-6">
+			<h4><%= group_icon(group.group_type) %> <%= link_to group.name, group_path(:id => group.id) %></h4>
+			<%= group.description %><br >
+			<%= font_awesome('users') + " #{group.users.count} "%>
+			<%= font_awesome('newspaper-o') + " #{group.posts.count}"%>
+			<%= font_awesome('user-plus') + " #{group.requests.count}"%>
+		</div>
+		<% end %>
+	</div>
+	<hr />
+<% end %>
+
 <% @groups.each do |group| %>
 	<%= group_icon(group.group_type) %> <%= link_to group.name, group_path(:id => group.id) %></b> <br />
 	Members: <%= group.users.count %>, Posts: <%= group.posts.count %><br />

@@ -6,8 +6,7 @@
 		</div>
 		<%= "No Requests!" if @requests.blank? %>
 			<% @requests.each do |req| %>
-				<%= member_request_row_html(req.user.member, @group.id).html_safe %><br />
-				<%= req.message %><br />
+				<%= member_request_row_html(req.user.member, req.id, req.message).html_safe %><br />
 			<% end %>
 			<script type="text/javascript">
 				$(".approve_btn").click(function(){
@@ -18,7 +17,7 @@
 	            },
 	            url : '/approve_join_request',
 	            success : function(result) {
-	                jQuery("tr#request_"+obj.attr('request_id')).html("");
+	                jQuery("td#td_"+obj.attr('request_id')).html("Approved");
 	            },
 	            error: function(result) {
 	                alert(result.message);
