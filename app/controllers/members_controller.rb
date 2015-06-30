@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-	before_action :authenticate_user!, :except => [:view_member]
+	before_action :authenticate_user!
 
 	def new_member
 		@member = Member.new

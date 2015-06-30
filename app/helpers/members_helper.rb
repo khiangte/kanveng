@@ -37,4 +37,21 @@ module MembersHelper
 			<td width="20%">' + link_to(font_awesome('check') + " Approve", "#", :request_id => request_id, :class => "approve_btn" ) + '</td>
 		</tr>'
 	end
+
+	def contacts_view(user)
+		symbols = {"Mobile" => "mobile", "Landline" => "phone", "Email" => "envelope-o", "Other" => "star"}
+		op = ""
+		if current_user.is_all_admin? || current_user == user
+			user.contacts.each do |c|
+				op += font_awesome(symbols[c.contact_type]) + ' ' + c.value + ' ' + (link_to font_awesome('pencil'), edit_contact_path(:id => c.id)) + " <br />".html_safe
+			end
+			op += link_to 'Add contact', new_contact_path(:user_id => user.id)
+		else
+			user.contacts.visible.each do |c|
+				op += font_awesome(symbols[c.contact_type]) + ' ' + c.value + " <br />".html_safe
+			end
+		end
+		op.html_safe
+	end
+
 end

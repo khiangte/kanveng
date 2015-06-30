@@ -38,6 +38,13 @@ Rails.application.routes.draw do
   get 'requests/:id' => 'groups#join_requests', :as => 'requests' 
   get 'pending_group_posts/:id' => 'groups#pending_group_posts', :as => 'pending_group_posts'
 
+#contacts
+  post 'create_contact' => 'contacts#create_contact', :as => 'create_contact'
+  get 'new_contact' => 'contacts#new_contact', :as => 'new_contact'
+  get 'contact/:id' => 'contacts#view_contact', :as => 'contact'
+  get 'edit_contact/:id' => 'contacts#edit_contact', :as => 'edit_contact'
+  post 'update_contact' => 'contacts#update_contact', :as => 'update_contact'
+  get 'delete_contact' => 'contacts#delete_contact', :as => 'delete_contact'
 
 #AdminDashboard
   get 'admin_dashboard' => 'admin_dashboard#index', :as => 'admin_dashboard'

@@ -99,7 +99,7 @@
 	    			<td class="profile_table" >EPIC Number</td><td><%= @member.epic_no %></td>
 	    		</tr>
 	    		<tr>
-	    			<td class="profile_table" >Date of Birth</td><td><%= @member.dob %>, Age call age(@member.dob)</td>
+	    			<td class="profile_table" >Date of Birth</td><td><%= @member.dob.strftime("%B %d, %Y") if @member.dob %></td>
 	    		</tr>
 	    		<tr>
 	    			<td class="profile_table" >Gender</td><td><%= @member.sex %> .capitalize</td>
@@ -109,6 +109,9 @@
 	    		</tr>
 	    		<tr>
 	    			<td class="profile_table" >Occupation</td><td><%= @member.occupation %></td>
+	    		</tr>
+	    		<tr>
+	    			<td class="profile_table" >Contact</td><td><%= contacts_view(@member.user) %></td>
 	    		</tr>
 	    		<tr>
 	    			<td class="profile_table" >Address</td><td><%= simple_format(@member.address) %></td>

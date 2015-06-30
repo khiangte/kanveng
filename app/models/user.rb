@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_one :member
   belongs_to :role
   has_many :posts
+  has_many :contacts
   has_many :groups, :through => :member_groups
   has_many :member_groups
   has_many :requests
