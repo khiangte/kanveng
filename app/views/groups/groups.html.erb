@@ -9,7 +9,7 @@
 		<% @mygroups.each do |group| %>
 		<div class="col-xs-12 col-md-6">
 			<h4><%= group_icon(group.group_type) %> <%= link_to group.name, group_path(:id => group.id) %></h4>
-			<%= group.description %><br >
+			<%= simple_format(group.description) %><br >
 			<%= font_awesome('users') + " #{group.users.count} "%>
 			<%= font_awesome('newspaper-o') + " #{group.posts.count}"%>
 			<%= font_awesome('user-plus') + " #{group.requests.count}"%>

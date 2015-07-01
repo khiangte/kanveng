@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
 	scope :approved, -> {where.not(:approved_by => nil)}
 	scope :unapproved, -> {where(:approved_by => nil)}
 	scope :open,	-> {where(:public => true)}
-	# 	    	t.string		:title
+	# 	    t.string		:title
 	#     	t.text			:content
 	#     	t.integer		:post_type
 	#     	t.datetime	:expires_at

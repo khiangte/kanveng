@@ -15,7 +15,9 @@
 				    		<%= (link_to (font_awesome('check') + " Verify"), "#", :title => 'Mark this member verified', :id => 'verify_member', :val => @member.id) unless @member.verified %>
 				    	</span>
 				    	<span id="deactivation_div">
+				    	<% unless current_user == @member.user %>
 				    		<a href="#" data-toggle="modal" data-target=".bs-example-modal-sm"><%= font_awesome('trash') %> Deactivate</a>
+				    		<% end %>
 				    	</span>
 				   		</div>
 							<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">

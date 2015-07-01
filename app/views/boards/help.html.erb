@@ -1,0 +1,24 @@
+<div class="center">
+<h3>Welcome to <b>KAN VÉNG </b></h3>
+</div>
+<div class="content">
+<p>Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....</p>
+<p>ed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah.... </p>
+<p>Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....</p>
+</div>
+<div class="header">
+If you have any questions, please find the details of our admins below:
+</div>
+<% @admins.each do |admin| %>
+	<div class="col-xs-12 col-md-6">
+	<table class="table">
+		<td>
+			<%= admin.full_name%><br/>
+			<%= contacts_view(admin)%>
+		</td>
+		<td><%= profile_photo(admin.member.photo_url, "60x60")%></td>
+	</table>
+	</div>
+<% end %>
+
+

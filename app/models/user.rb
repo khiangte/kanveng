@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :member_groups
   has_many :member_groups
   has_many :requests
+  has_many :alerts
 
   scope :admins, -> { where('role_id in (?)', Role.admin_roles) }
 

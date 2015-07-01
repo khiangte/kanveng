@@ -26,8 +26,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
+            <li><%= link_to (font_awesome('info-circle') + ' Help').html_safe,  help_path %></li>
             <% if user_signed_in? && (current_user.role.is_all_admin? || current_user.is_group_admin?)%>
-              <li><%= link_to (font_awesome('wrench') + ' Admin Board').html_safe,  admin_dashboard_path %></li>
+              <li><%= link_to (font_awesome('wrench') + ' Admin').html_safe,  admin_dashboard_path %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">

@@ -53,7 +53,25 @@ class GroupsController < ApplicationController
 		else
 			render :json =>{:error => "error", :message => request ? "Permisson denied" : "Request not found"}
 		end
-		
+	end
+
+	def leave_group
+		group = Group.find_by_id(params[:group_id])
+		if group && current_user.is_member_of?(group)
+			membership = MemberGroup.where("user_id = ? and group_id = ?", current_user.id, group.id).first
+			membership.delete if membership
+		end
+		redirect_to group_path(:id => group)
+	end
+
+	def delete_join_request
+		request = Request.find_by_id(params[:request_id])
+		if request && current_user.is_admin_of?(request.group)
+			request.delete
+			render :json =>{:success => true}
+		else
+			render :json =>{:error => "error", :message => request ? "Permisson denied" : "Request not found"}
+		end
 	end
 
 	def join_requests
@@ -84,7 +102,7 @@ class GroupsController < ApplicationController
 		@group = Group.active.find_by_id(params[:id])
 		if current_user.is_member_of?(@group)
 			@members = @group.member_groups.limit(3).order("created_at desc").collect{|q| q.user.member}
-			@admins = @group.admins
+			@admins = @group.admin_members
 		else
 			redirect_to group_path(:id => @group)
 		end

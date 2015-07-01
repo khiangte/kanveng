@@ -8,16 +8,20 @@
 	  Also a photo: to be updated when migration is run
 		 	<h3><%= group_icon(@group.group_type) %> <%=@group.name %></h3>
 		 	<hr />
-	    	<%= simple_format(@group.description) %>  
+	    	<%= simple_format(@group.description) %> 
+	    	<h5>Admin: <%= @group.admins.first.try(:full_name) %></h4>
 	    	<div class="pull-right">
 			 		<%= font_awesome('users') + " #{@group.members.count}"%>
 			 		<%= font_awesome('newspaper-o') + " #{@group.posts.count}"%> 
+			 		<%= link_to font_awesome('sign-out'), leave_group_path(:group_id => @group), :title => 'Leave Group', :onclick=>"return confirm('Are you sure you want to leave the group?')" if user_signed_in? && current_user.is_member_of?(@group) %>
 		 		</div>
 	    	<% if user_signed_in? %>
 		    	<% if (current_user.is_all_admin? || current_user.is_admin_of?(@group)) %> 
 			    	<%= link_to 'Edit', edit_group_path(:id => @group.id) %> 
-			    	<%= link_to "Join Requests(#{@group.requests.count})", requests_path(:id => @group.id) %>
-			    	<%= link_to "Pending Posts(#{@group.posts.unapproved.count})", pending_group_posts_path(:id => @group.id) %>
+			    		<% if current_user.is_admin_of?(@group) %>
+					    	<%= link_to "Join Requests(#{@group.requests.count})", requests_path(:id => @group.id) %>
+					    	<%= link_to "Pending Posts(#{@group.posts.unapproved.count})", pending_group_posts_path(:id => @group.id) %>
+				    	<% end %>
 		    	<% elsif current_user.verified? && (!current_user.groups.include?(@group)) && (!@group.requests.map(&:user_id).include?(current_user.id))%>
 		    		<div id="join_request_div">
 			    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Request Join</button>
@@ -40,7 +44,7 @@
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					        <button type="button" class="btn btn-default" data-dismiss="modal" id="send_request_btn" user=<%=@current_user.id%> group=<%= @group.id %>>Send request</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal" id="send_request_btn" user=<%=current_user.id%> group=<%= @group.id %>>Send request</button>
 					      </div>
 						    </div>
 						  </div>

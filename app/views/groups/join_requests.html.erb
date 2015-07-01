@@ -24,6 +24,22 @@
 	            }
 	        });
 				});
+
+				$(".delete_btn").click(function(){
+				  obj = $(this);
+					jQuery.ajax({
+	            data : {
+	                request_id : obj.attr('request_id')
+	            },
+	            url : '/delete_join_request',
+	            success : function(result) {
+	                jQuery("td#td_"+obj.attr('request_id')).html("Deleted");
+	            },
+	            error: function(result) {
+	                alert(result.message);
+	            }
+	        });
+				});
 			</script>
 		<% end %>
 	</table>

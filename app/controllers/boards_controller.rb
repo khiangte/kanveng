@@ -20,4 +20,9 @@ class BoardsController < ApplicationController
 	def admins
 		@admins = User.admins
 	end
+
+	def help
+		@admins = User.admins
+		@groups = Group.active
+	end
 end

@@ -33,14 +33,14 @@ module MembersHelper
 		'<tr id = request_' + request_id.to_s + ' >
 			<td width="10%">' + profile_photo(member.photo_url,"30x30") + '</td>
 			<td width="70%">' + link_to(member.full_name, member_path(:id => member.id)) + ' &nbsp;&nbsp;&nbsp;' + msg + '</td>
-			<td width="20%" id= td_' + request_id.to_s + '>' + link_to(" Approve", "#", :request_id => request_id, :class => "approve_btn" ) + '</td>
+			<td width="20%" id= td_' + request_id.to_s + '>' + link_to("Delete", "#", :request_id => request_id, :class => "delete_btn" ) + ' | ' + link_to(" Approve", "#", :request_id => request_id, :class => "approve_btn" ) + '</td>
 		</tr>'
 	end
 
 	def contacts_view(user)
 		symbols = {"Mobile" => "mobile", "Landline" => "phone", "Email" => "envelope-o", "Other" => "star"}
 		op = ""
-		if current_user.is_all_admin? || current_user == user
+		if user_signed_in? && (current_user.is_all_admin? || current_user == user)
 			user.contacts.each do |c|
 				op += font_awesome(symbols[c.contact_type]) + ' ' + c.value + ' ' + (link_to font_awesome('pencil'), edit_contact_path(:id => c.id)) + " <br />".html_safe
 			end

@@ -1,10 +1,7 @@
-<div class="header">
-<div class="col-xs-4 right"><%= link_to (font_awesome("newspaper-o") + " POSTS"), "#" %>
-</div>
-<div class="col-xs-4 center"><%= link_to (font_awesome("users") + " MEMBERS"), "#" %>
-</div>
-<div class="col-xs-4"><%= link_to (font_awesome("share-alt") + " GROUPS"), manage_groups_path %>
-</div>
+<div class="header center">
+	<%= font_awesome("newspaper-o") + " POSTS" %>	|
+	<%= link_to (font_awesome("share-alt") + " GROUPS"), manage_groups_path %> | 
+	<%= link_to (font_awesome("bullhorn") + " ALERTS!"), alerts_path %>
 </div>
 Admin will see new posts/member profiles to be approved,
 see various links like Deactivating Members/ Create public Announcements/ Emergency Alert/ Create new group/ Appoint admins to groups

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628125915) do
+ActiveRecord::Schema.define(version: 20150701184004) do
+
+  create_table "alerts", force: :cascade do |t|
+    t.string   "message",    limit: 255
+    t.integer  "group_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.boolean  "sent",       limit: 1,   default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.integer  "user_id",      limit: 4

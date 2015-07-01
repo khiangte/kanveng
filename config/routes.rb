@@ -36,9 +36,11 @@ Rails.application.routes.draw do
   get 'groups' => 'groups#groups', :as => 'groups'
   get 'request_join_group' => 'groups#request_join_group', :as => 'request_join_group'
   get 'approve_join_request' => 'groups#approve_join_request', :as => 'approve_join_request'
+  get 'delete_join_request' => 'groups#delete_join_request', :as => 'delete_join_request'
   get 'requests/:id' => 'groups#join_requests', :as => 'requests' 
   get 'pending_group_posts/:id' => 'groups#pending_group_posts', :as => 'pending_group_posts'
-  get 'group_members/:id' => 'groups#group_members', :as => 'group_members'
+  get 'group_members/:id' => 'groups#group_members', :as => 'group_members' 
+  get 'leave_group' => 'groups#leave_group', :as => 'leave_group'
 
 #contacts
   post 'create_contact' => 'contacts#create_contact', :as => 'create_contact'
@@ -51,4 +53,11 @@ Rails.application.routes.draw do
 #AdminDashboard
   get 'admin_dashboard' => 'admin_dashboard#index', :as => 'admin_dashboard'
   get 'manage_groups' => 'admin_dashboard#manage_groups', :as => 'manage_groups'
+  get 'alerts' => 'admin_dashboard#alerts', :as => 'alerts'
+
+#alerts
+  post 'create_alert' => 'alerts#create_alert', :as => 'create_alert'
+
+#boards
+  get 'help' => 'boards#help', :as => 'help'
 end

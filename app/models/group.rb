@@ -6,8 +6,12 @@ class Group < ActiveRecord::Base
 	has_many :posts
 	has_many :requests
 
-	def admins
+	def admin_members
 		member_groups.where("admin = ?", true).order('updated_at desc').collect{|d| d.user.member}
+	end
+
+	def admins
+		member_groups.where("admin = ?", true).order('updated_at desc').collect{|d| d.user}
 	end
 
 	def members
