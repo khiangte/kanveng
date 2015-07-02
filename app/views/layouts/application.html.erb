@@ -36,7 +36,7 @@
             <li><%= link_to (font_awesome('share-alt') + ' Groups').html_safe,  groups_path %></li>
             <li><%= link_to (font_awesome('newspaper-o') + ' Posts').html_safe,  posts_path %></li>
             <li><%= link_to (font_awesome('users') + ' Members').html_safe,  members_path %></li>
-            <li><%= link_to (font_awesome('user') + " #{truncate(current_user.full_name.split(' ').first, :length => 18)}").html_safe,  member_path(:id => current_user.member) %></li>
+            <li><%= link_to (font_awesome('user') + " #{truncate(current_user.full_name.to_s.split(' ').first, :length => 18)}").html_safe,  member_path(:id => current_user.member) %></li>
             <!-- <li class="active"> -->
             <li><%= link_to (font_awesome('sign-out') + ' Log out').html_safe,  destroy_user_session_path, :method => :delete %></li>
       			<% else %>

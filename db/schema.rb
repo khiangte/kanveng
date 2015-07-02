@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 20150701184004) do
     t.string   "name",        limit: 255
     t.string   "description", limit: 255
     t.integer  "group_type",  limit: 4
-    t.boolean  "active",      limit: 1,   default: true
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.text     "photo_url",   limit: 65535
+    t.boolean  "active",      limit: 1,     default: true
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "member_groups", force: :cascade do |t|

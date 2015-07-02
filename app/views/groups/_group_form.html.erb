@@ -21,6 +21,11 @@
 			    <%= f.label :group_type %> 
 			  	<%= f.select(:group_type, options_for_select([['NGO','NGO'],['Church','Church'],['Institution','Institution'],['Government','Government']]),{},{:class => "form-control"}) %>
 		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :photo_url %><br />
+		    <%= f.text_field :photo_url, :class => "form-control", :placeholder=>"Place Group Photo Url here if any" %>
+		  </div>
 		  <% if current_user.is_all_admin? %>
 		  	<%= hidden_field_tag :admin_id,nil, :value => @group.admins.first.try(:id) %>
 				<%= f.label :admin_id %>

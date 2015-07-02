@@ -3,9 +3,8 @@
 <% else %>
 	<div class="panel panel-default">
 	  <div class="panel-body">
-	  <div class="logo pull-right"><%= group_logo()%>
+	  <div class="logo pull-right"><%= group_logo(@group.photo_url)%>
 	  </div>
-	  Also a photo: to be updated when migration is run
 		 	<h3><%= group_icon(@group.group_type) %> <%=@group.name %></h3>
 		 	<hr />
 	    	<%= simple_format(@group.description) %> 
