@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use mysql as the database for Active Record
-gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -27,7 +26,11 @@ gem 'devise'
 
 #localtime simplifier
 gem 'local_time'
+gem 'mysql2'
 
+# group :production do
+# 	gem 'pg'
+# end
 #bootstrap datetimepicker
 # gem 'momentjs-rails', '>= 2.9.0'
 # gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
@@ -43,7 +46,6 @@ gem 'local_time'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
