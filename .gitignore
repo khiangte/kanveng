@@ -21,14 +21,14 @@ capybara-*.html
 /coverage/
 /spec/tmp
 /cofig/database.yml
-/cofig/secrets.yml
+# /cofig/secrets.yml
 **.orig
 rerun.txt
 pickle-email-*.html
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/secrets.yml
+#config/initializers/secret_token.rb
+#config/secrets.yml
 
 ## Environment normalisation:
 /.bundle
