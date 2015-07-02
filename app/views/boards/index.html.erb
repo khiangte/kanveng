@@ -4,7 +4,7 @@
 <div class="content">
 	<% @public_posts.each do |post|%>
 		<b><%= link_to post.title, post_path(:id=> post.id) %></b>
-		<i><%= link_to (font_awesome('unlock') + " " + post.group.name), group_path(:id => post.id) if post.group %></i><br />
+		<i><%= link_to (font_awesome('unlock') + " " + post.group.name), group_path(:id => post.group) if post.group %></i><br />
 		<%= simple_format(post.content) %>
 		<i>Posted by: <b><%= post.member.full_name %></b> at
 		<b> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %></b></i> 
@@ -18,7 +18,7 @@
 	<div class="content">
 		<% @private_posts.each do |post|%>
 			<b><%= link_to post.title, post_path(:id=> post.id) %></b>
-			<i><%= link_to (font_awesome('lock') + " " + post.group.name), group_path(:id => post.id)%></i><br />
+			<i><%= link_to (font_awesome('lock') + " " + post.group.name), group_path(:id => post.group)%></i><br />
 			<%= simple_format(post.content) %>
 			<i>Posted by: <b><%= post.member.full_name %></b> at
 			<b> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %></b></i> 

@@ -89,6 +89,14 @@ class GroupsController < ApplicationController
 		render :json => {:success => true}
 	end
 
+	def group_alerts
+		@group = Group.find_by_id(params[:group_id])
+		@alerts = []
+		if @group && current_user.is_admin_of?(@group)
+			@alerts = Alert.where("group_id = ?", @group.id).order('created_at desc').limit(10)
+		end
+	end
+
 	def groups
 		@groups = Group.active.order('name')
 		@mygroups = []

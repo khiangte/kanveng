@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get 'pending_group_posts/:id' => 'groups#pending_group_posts', :as => 'pending_group_posts'
   get 'group_members/:id' => 'groups#group_members', :as => 'group_members' 
   get 'leave_group' => 'groups#leave_group', :as => 'leave_group'
+  get 'group_alerts' => 'groups#group_alerts', :as => 'group_alerts'
 
 #contacts
   post 'create_contact' => 'contacts#create_contact', :as => 'create_contact'

@@ -11,7 +11,7 @@ class AlertsController < ApplicationController
 				msg = "Alert created!"
 			end
 		end
-		alerts = Alert.where("group_id = ?", 0).order('created_at desc').limit(10)
+		alerts = Alert.where("group_id = ?", params[:group_id]).order('created_at desc').limit(10)
 		render :json => {:message => view_context.alert_boxes(alerts), :msg => msg}
 	end
 
