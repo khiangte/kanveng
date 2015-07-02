@@ -16,7 +16,7 @@ class MembersController < ApplicationController
 	end
 
 	def members
-			@members = Member.active.limit(10).order('id desc')
+			@members = Member.active.verified.limit(10).order('id desc')
 	end
 
 	def search_members

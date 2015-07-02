@@ -17,7 +17,7 @@ module MembersHelper
 		'<tr>
 			<td width="10%">' + profile_photo(member.photo_url,"30x30") + '</td>
 			<td width="60%">' + link_to(member.full_name, member_path(:id => member.id)) + '</td>
-			<td width="30%" class="text-right"> <span class="badge">' + member.epic_no + '</span></td>
+			<td width="30%" class="text-right"> <span class="badge">' + member.epic_no.to_s + '</span></td>
 		</tr>'
 	end
 
