@@ -5,7 +5,7 @@ class AlertsController < ApplicationController
 		msg = "Alert was not created!"
 		if params[:user_id] && params[:message] && params[:group_id]
 			group = Group.find_by_id(params[:group_id])
-			if current_user.is_all_admin? || current_user.is_admin_of?(group)
+			if current_user.is_all_admin? || group && current_user.is_admin_of?(group)
 				alert = Alert.create :user_id => params[:user_id], :message => params[:message], :group_id => params[:group_id]
 				send_alert_sms(alert)
 				msg = "Alert created!"
