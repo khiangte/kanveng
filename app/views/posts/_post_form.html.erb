@@ -28,6 +28,7 @@
 				  	<%= f.select(:public, options_for_select([['Yes',1],['No',0]]),{},{:class => "form-control"}) %>
 			  </div>
 			</div>
+			<%= f.hidden_field :id, :value => @post.id %>
 			<div class="col-xs-6">
 			  <div class="form-group">
 			    <%= f.label :group_id %><br />

@@ -33,8 +33,7 @@ class PostsController < ApplicationController
 
 	def update_post
 		@post = Post.active.find_by_id(post_params["id"])
-		#also add if the post belongs to group then add group admin of that group
-		if current_user.member.is_verified? && @post.member == current_user.member || current_user.role.is_all_admin?
+		if current_user.member.is_verified? && (@post.member == current_user.member || current_user.is_admin_of?(@post.group)) || (current_user.role.is_all_admin? && post.group.nil?)
 			@post.update_attributes(post_params)
 			@post.approved_by = nil if current_user.role.is_not_admin?
 			if @post.save
@@ -61,6 +60,9 @@ class PostsController < ApplicationController
 
 	def edit_post
 		@post = Post.active.find_by_id(params[:id])
+		unless (current_user.member == @post.member || current_user.is_admin_of?(@post.group))
+				@post = nil
+		end
 	end
 
 	def view_post
