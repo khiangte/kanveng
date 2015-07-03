@@ -4,7 +4,7 @@ module AlertsHelper
 		alerts.each do |alert| 
 			result += '<div class="col-xs-12 col-md-4">
 							<b>Message:</b> ' + alert.message + ' <br /> 
-							<b>Sent by:</b> ' + alert.user.full_name + ' <br />
+							<b>Sent by:</b> ' + alert.user.full_name.to_s + ' <br />
 							<b>Time:</b> ' + local_time(alert.created_at) + ' <br />
 							<b>Status: </b> ' + (alert.sent ? 'Sent' : 'Queued/Not Yet Sent') + '<br /><br/></div>'
 		end
