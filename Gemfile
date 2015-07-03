@@ -28,6 +28,9 @@ gem 'devise'
 gem 'local_time'
 gem 'mysql2'
 
+gem 'delayed_job_active_record'
+gem 'daemons' #to facilitate background processes
+
 # group :production do
 # 	gem 'pg'
 # end
