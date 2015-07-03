@@ -14,6 +14,7 @@
 			<%= link_to "Edit Post", edit_post_path(:id => @post) %>
 		<% end %>
 		<b><i>Posted by <%= @post.member.full_name %> <%= local_time_ago(@post.created_at) %>
+		<br /><i>Expires at: <b> <%= local_time(@post.expires_at) %></b></i> 
 		<div id="approval_div">
 			<% if @post.approved_by %>
 				Approved by <%= @post.approver.member.full_name %>

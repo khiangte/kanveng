@@ -97,9 +97,11 @@
 	    		<tr>
 	    			<td class="profile_table" >Name</td><td><%= @member.full_name %></td>
 	    		</tr>
-	    		<tr>
-	    			<td class="profile_table" >EPIC Number</td><td><%= @member.epic_no %></td>
-	    		</tr>
+	    		<% if current_user.is_all_admin? || current_user.member == @member %>
+		    		<tr>
+		    			<td class="profile_table" >EPIC Number</td><td><%= @member.epic_no %></td>
+		    		</tr>
+		    		<% end %>
 	    		<tr>
 	    			<td class="profile_table" >Date of Birth</td><td><%= @member.dob.strftime("%B %d, %Y") if @member.dob %></td>
 	    		</tr>

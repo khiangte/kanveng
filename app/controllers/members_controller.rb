@@ -101,6 +101,7 @@ class MembersController < ApplicationController
 			member = user.member
 			member.active = false
 			member.save
+			user.contacts.destroy_all
 			user.deactivated = true
 			user.save
 			Deactivation.create :user_id => user.id, :effective_date => params[:effective_date].to_date, :reason => params[:reason]

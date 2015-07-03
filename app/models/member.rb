@@ -3,6 +3,9 @@ class Member < ActiveRecord::Base
 	scope :verified, -> {where(verified: true)}
 	scope :unverified, -> {where(verified: false)}
 	belongs_to :user
+	
+	validates_uniqueness_of :epic_no, :allow_nil => true, :allow_blank => true
+
 
 	
 

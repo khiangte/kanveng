@@ -7,7 +7,9 @@
 		<i><%= link_to (font_awesome('unlock') + " " + post.group.name), group_path(:id => post.group) if post.group %></i><br />
 		<%= simple_format(post.content) %>
 		<i>Posted by: <b><%= post.member.full_name %></b> at
-		<b> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %></b></i> 
+		<b> <%= local_time(post.created_at) %></b></i>
+		<br />
+		<i>Expires at: <b> <%= local_time(post.expires_at) %></b></i> 
 		<hr />
 	<% end %>
 </div>
@@ -21,8 +23,9 @@
 			<i><%= link_to (font_awesome('lock') + " " + post.group.name), group_path(:id => post.group)%></i><br />
 			<%= simple_format(post.content) %>
 			<i>Posted by: <b><%= post.member.full_name %></b> at
-			<b> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %></b></i> 
+			<b> <%= local_time(post.created_at) %></b></i> 
 			<br />
+			<i>Expires at: <b> <%= local_time(post.expires_at) %></b></i> 
 			<hr />
 		<% end %>
 	</div>

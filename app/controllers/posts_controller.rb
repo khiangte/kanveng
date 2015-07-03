@@ -61,12 +61,15 @@ class PostsController < ApplicationController
 	def edit_post
 		@post = Post.active.find_by_id(params[:id])
 		unless (current_user.member == @post.member || current_user.is_admin_of?(@post.group))
-				@post = nil
+			@post = nil
 		end
 	end
 
 	def view_post
 		@post = Post.active.find_by_id(params[:id])
+		if @post && @post.approved_by.blank? && (current_user.member =! @post.member || !current_user.is_admin_of?(@post.group))
+			@post = nil
+		end
 	end
 
 	private

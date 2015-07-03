@@ -86,7 +86,7 @@
 				<b><%= link_to post.title, post_path(:id=> post.id) %></b><br />
 				<%= simple_format(post.content) %>
 				<b> <%= post.user.member.full_name %></b>
-				<b> <%= post.created_at.strftime("%B %d, %Y, %I:%M %p") %></b></i> 
+				<b> <%= local_time(post.created_at) %></b></i> 
 				<br />
 		<% end %>
 <% end %>

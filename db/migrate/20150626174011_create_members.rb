@@ -16,7 +16,7 @@ class CreateMembers < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :members, :epic_no,                unique: true
+    add_index :members, :epic_no
     add_index :members, :full_name
   end
 end
