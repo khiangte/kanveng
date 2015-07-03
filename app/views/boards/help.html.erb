@@ -2,13 +2,27 @@
 <h3>Welcome to <b>KAN VÉNG </b></h3>
 </div>
 <div class="content">
-<p>Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....</p>
-<p>ed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah.... </p>
-<p>Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. blah blab blah....</p>
+<p>Kan Véng is an application designed to be used at the local council level or Véng/Khuá whichever is applicable depending on the size of the council. It's main aim is to digitalise and simplify the process of conveying information to members of the community.</p>
+<div class="table center">
+	<h5><b>Some useful information relevant to our locality</b></h>
+	<table class="table">
+		<tr>
+			<td class="profile_table" >Police</td><td class="left">91-9985584751</td>
+		</tr>
+		<tr>
+			<td class="profile_table" >Fire Department</td><td class="left">91-1232121254</td>
+		</tr>
+		<tr>
+			<td class="profile_table" >Nazareth Hospital</td><td class="left">91-9999984751</td>
+		</tr>
+		<tr>
+			<td class="profile_table" >Pu Thangkima, VC</td><td class="left">91-9999955555</td>
+		</tr>
+	</table>
 </div>
-<div class="header">
-If you have any questions, please find the details of our admins below:
 </div>
+
+<h5><b>If you have any questions, please contact our admins below:</b></h5>
 <% @admins.each do |admin| %>
 	<div class="col-xs-12 col-md-6">
 	<table class="table">
@@ -16,7 +30,7 @@ If you have any questions, please find the details of our admins below:
 			<%= admin.full_name%><br/>
 			<%= contacts_view(admin)%>
 		</td>
-		<td><%= profile_photo(admin.member.photo_url, "60x60")%></td>
+		<td class="right"><%= profile_photo(admin.member.photo_url, "60x60")%></td>
 	</table>
 	</div>
 <% end %>

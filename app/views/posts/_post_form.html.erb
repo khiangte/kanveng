@@ -38,7 +38,7 @@
 			 </div>
 	  <div class="form-group">
 	    <b>Expires On</b><br />
-	    <%= f.datetime_select :expires_at, :start_year => Date.current.year, :end_year => Date.current.year + 1, :default => Date.today %>
+	    <%= f.datetime_select :expires_at, :start_year => Date.current.year, :end_year => Date.current.year + 1, :default => Date.today + 1.day %>
 	  </div>
 	  
 	  <div class="form-group">
