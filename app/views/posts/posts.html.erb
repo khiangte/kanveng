@@ -7,7 +7,7 @@
 <% @posts.each do |post| %>
 	<%= font_awesome('calendar') %> <b><%= post.title %></b> <%= post.public ? (font_awesome('globe') + " Public") : (font_awesome('unlock') + " Group name") %><br />
 	<%= font_awesome('user') %> <%= link_to post.member.full_name, member_path(:id => post.member.id) %> <%= local_time(post.created_at) %><br />
-	<%= simple_format(truncate(post.content, :length => 200)) %>
+	<%= simple_format(post.content).html_safe %>
 	<br /><i>Expires at: <b> <%= local_time(post.expires_at) %></b></i> 
 	<br /><br />
 <% end %>
