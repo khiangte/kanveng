@@ -1,0 +1,25 @@
+<div class="header center">
+	<%= link_to (font_awesome("newspaper-o") + " POSTS"), admin_dashboard_path %>	|
+	<%= link_to (font_awesome("share-alt") + " GROUPS"), manage_groups_path %> | 
+	<%= link_to (font_awesome("bullhorn") + " ALERTS!"), alerts_path %>
+	<%= font_awesome("bullhorn") + " SYSTEM DATA" %> |
+
+</div>
+The following are values shown in the help page. 
+Two types are defined: About and Contacts
+
+<div class="header"><%= font_awesome('bullhorn') %> System Data</div>
+<p><%= link_to 'New SystemDatum', new_system_data_path %></p>
+<% if !@about_data.blank? %>
+	<h4>About:</h4><br/>
+	<%= simple_format(@about_data.first.content) %>
+	<%= link_to 'Edit', edit_system_data_path(:id => @about_data.first.id) %>
+<% end %>
+
+<% if !@contact_data.blank? %>
+	<h4>Contacts:</h4><br/>
+	<% @contact_data.each do |c| %>
+		<p><b><%= c.key_word %> : </b><%= c.content %> <br />
+		<%= link_to 'Edit', edit_system_data_path(:id => c.id) %> </p>
+	<% end %>	
+<% end %>

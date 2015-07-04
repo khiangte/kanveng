@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703203311) do
+ActiveRecord::Schema.define(version: 20150704082906) do
 
   create_table "alerts", force: :cascade do |t|
     t.string   "message",    limit: 255
@@ -119,6 +119,14 @@ ActiveRecord::Schema.define(version: 20150703203311) do
     t.integer  "level",      limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "system_data", force: :cascade do |t|
+    t.text     "content",          limit: 65535
+    t.string   "key_word",         limit: 255
+    t.integer  "system_data_type", limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "users", force: :cascade do |t|

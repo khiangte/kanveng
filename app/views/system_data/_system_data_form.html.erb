@@ -1,0 +1,29 @@
+<% if @system_data.errors.any? %>
+	<div class="alert alert-info" role="alert">
+		<% for msg in @system_data.errors.full_messages %>
+			<li><%= msg %></li>
+		<% end %>
+	</div>
+<% end %>
+<%= form_for @system_data, url: (@system_data.id.blank? ? create_system_data_path : update_system_data_path), :method => :POST do |f| %>
+	<form>
+		  <div class="form-group">
+		    <%= f.label :key_word %><br />
+		    <%= f.text_field :key_word, :class => "form-control", :placeholder=>"Identifier" %>
+		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :content %><br />
+		    <%= f.text_area :content, :class => "form-control", :placeholder=>"Content" %>
+	  	</div>
+		  
+			<div class="form-group">
+			    <%= f.label :system_data_type %> 
+			  	<%= f.select(:system_data_type, options_for_select([['Contact','Contact'],['About','About']], @system_data.system_data_type),{},{:class => "form-control"}) %>
+		  </div>
+			<%= f.hidden_field :id, :value => @system_data.id %>
+	  <div class="form-group">
+	    <%= f.submit :class => "btn btn-default" %>
+	  </div>
+	</form>
+<% end %>

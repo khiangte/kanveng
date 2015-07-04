@@ -24,5 +24,7 @@ class BoardsController < ApplicationController
 	def help
 		@admins = User.admins
 		@groups = Group.active
+		@about = SystemDatum.where("system_data_type = ?", 1).first
+		@contacts = SystemDatum.where("system_data_type = ?", 0)
 	end
 end

@@ -55,9 +55,16 @@ Rails.application.routes.draw do
   get 'admin_dashboard' => 'admin_dashboard#index', :as => 'admin_dashboard'
   get 'manage_groups' => 'admin_dashboard#manage_groups', :as => 'manage_groups'
   get 'alerts' => 'admin_dashboard#alerts', :as => 'alerts'
+  get 'system_data' => 'admin_dashboard#system_data', :as => 'system_data'
 
 #alerts
   post 'create_alert' => 'alerts#create_alert', :as => 'create_alert'
+
+#system_data
+  get 'new_system_data' => 'system_data#new_system_data', :as => 'new_system_data'
+  get 'edit_system_data' => 'system_data#edit_system_data', :as => 'edit_system_data'
+  post 'create_system_data' => 'system_data#create_system_data', :as => 'create_system_data'
+  post 'update_system_data' => 'system_data#update_system_data', :as => 'update_system_data'
 
 #boards
   get 'help' => 'boards#help', :as => 'help'

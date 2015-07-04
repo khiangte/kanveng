@@ -1,0 +1,9 @@
+<h3>
+	<%= font_awesome('user-plus') %>
+	Create a new System Datum <span class="badge pull-right"></span>
+</h3>
+<% if @system_data %>
+	<%= render 'system_data_form' %>
+<% else %>
+	Sorry, you need are not authorised!
+<% end %>
