@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
 	def pending_group_posts
 		@group = Group.active.find_by_id(params["id"])
 		if current_user.is_admin_of? @group	
-			@posts = @group.posts.unapproved
+			@posts = @group.posts.active.unapproved
 		else
 			flash[:notice] = "Only group admin can approve posts"
 			redirect_to group_path(:id => params[:id])
