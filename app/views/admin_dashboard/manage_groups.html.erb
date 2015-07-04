@@ -3,8 +3,7 @@
 	<%= font_awesome("share-alt") + " GROUPS" %> | 
 	<%= link_to (font_awesome("bullhorn") + " ALERTS!"), alerts_path %>
 </div>
-Admin will see new posts/member profiles to be approved,
-see various links like Deactivating Members/ Create public Announcements/ Emergency Alert/ Create new group/ Appoint admins to groups
+<h5>The following are active groups and their basic information. Edit the group and change info or appoint admin to a group.</h5>
 
 <div class="row contents">
 	<% @groups.each do |group| %>

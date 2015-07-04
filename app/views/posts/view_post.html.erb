@@ -10,7 +10,7 @@
 		</div>
 		
 		<div class="panel-body">
-		<% if user_signed_in? &&(current_user.member == @post.member || current_user.is_admin_of?(@post.group)) %>
+		<% if user_signed_in? &&(current_user.member == @post.member || current_user.is_admin_of?(@post.group)) || @post.group.nil? && @post.public && current_user.is_all_admin?%>
 			<%= link_to "Edit Post", edit_post_path(:id => @post) %>
 		<% end %>
 		<b><i>Posted by <%= @post.member.full_name %> <%= local_time_ago(@post.created_at) %>

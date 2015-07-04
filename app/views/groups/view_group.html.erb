@@ -20,7 +20,7 @@
 			    		<% if current_user.is_admin_of?(@group) %>
 			    			<%= link_to "Alerts", group_alerts_path(:group_id => @group.id) %>
 					    	<%= link_to "Join Requests(#{@group.requests.count})", requests_path(:id => @group.id) %>
-					    	<%= link_to "Pending Posts(#{@group.posts.unapproved.count})", pending_group_posts_path(:id => @group.id) %>
+					    	<%= link_to "Pending Posts(#{@group.posts.active.unapproved.count})", pending_group_posts_path(:id => @group.id) %>
 				    	<% end %>
 		    	<% elsif current_user.verified? && (!current_user.groups.include?(@group)) && (!@group.requests.map(&:user_id).include?(current_user.id))%>
 		    		<div id="join_request_div">
